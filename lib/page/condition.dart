@@ -20,21 +20,24 @@ class Condition extends StatelessWidget {
             children: [
               Container(
                 color: Color.fromARGB(255, 198, 255, 235),
-                padding: EdgeInsets.only(top: 40, bottom: 30),
+                padding: EdgeInsets.only(top: 50, bottom: 20),
                 child: ListTile(
-                  titleAlignment: ListTileTitleAlignment.center,
-                  title: Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'เงื่อนไขและนโยบายการเช่า',
-                      style: TextStyle(
-                          fontFamily: 'Kanit',
-                          fontWeight: FontWeight.w700,
-                          fontSize: 18),
+                    titleAlignment: ListTileTitleAlignment.center,
+                    title: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'เงื่อนไขและนโยบายการเช่า',
+                        style: TextStyle(
+                            fontFamily: 'Kanit',
+                            fontWeight: FontWeight.w700,
+                            fontSize: 18),
+                      ),
                     ),
-                  ),
-                  trailing: Icon(Icons.clear),
-                ),
+                    trailing: Icon(
+                      Icons.clear_sharp,
+                      color: Color.fromARGB(255, 189, 127, 255),
+                      size: 34,
+                    )),
               ),
               Container(
                 margin: EdgeInsets.only(top: 20),
@@ -42,7 +45,10 @@ class Condition extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('1. การจองและการติดต่อ'),
+                    Text(
+                      '1. การจองและการติดต่อ',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     bulletedText(
                         "ผู้เช่าต้องส่งรายละเอียดการจองให้ผู้ปล่อยเช่าผ่านทางแชทของแอป"),
                     bulletedText(
@@ -52,7 +58,10 @@ class Condition extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    Text('2. ระยะเวลาการเช่า'),
+                    Text(
+                      '2. ระยะเวลาการเช่า',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     bulletedText(
                         'ระยะเวลาการเช่าจะเริ่มนับตั้งแต่วันที่พัสดุถึงปลายทางของผู้เช่า (อ้างอิงจากข้อมูลการจัดส่งของบริษัทขนส่ง)'),
                     bulletedText(
@@ -60,7 +69,10 @@ class Condition extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    Text('3. การรับและคืนชุด'),
+                    Text(
+                      '3. การรับและคืนชุด',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     bulletedText(
                         'ผู้เช่าต้องตรวจสอบชุดทันทีหลังได้รับ หากพบปัญหา เช่น เสียหายหรือไม่ตรงกับที่จอง ต้องแจ้งผู้ปล่อยเช่าผ่านแอปภายใน 24 ชั่วโมง'),
                     bulletedText(
@@ -68,7 +80,10 @@ class Condition extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    Text('4. ค่ามัดจำและค่าปรับ'),
+                    Text(
+                      '4. ค่ามัดจำและค่าปรับ',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     bulletedText(
                         'ผู้ปล่อยเช่าอาจกำหนด ค่ามัดจำ สำหรับการเช่า ซึ่งจะถูกคืนให้หลังจากตรวจสอบสภาพชุดแล้ว'),
                     bulletedText(
@@ -76,7 +91,10 @@ class Condition extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    Text('5. ความรับผิดชอบของผู้เช่าและผู้ปล่อยเช่า'),
+                    Text(
+                      '5. ความรับผิดชอบของผู้เช่าและผู้ปล่อยเช่า',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     bulletedText('ผู้เช่าต้องดูแลชุดให้ดีและคืนให้ตรงเวลา'),
                     bulletedText(
                         'ผู้ปล่อยเช่าต้องส่งชุดตามที่ตกลงไว้ และรับผิดชอบหากชุดมีปัญหาก่อนการส่ง'),
@@ -85,7 +103,12 @@ class Condition extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    Text('การใช้บริการแอปนี้ถือว่าผู้ใช้ยอมรับเงื่อนไขและนโยบายข้างต้น',style: TextStyle(color: Color.fromARGB(255, 123, 0, 255),fontSize: 10),),
+                    Text(
+                      'การใช้บริการแอปนี้ถือว่าผู้ใช้ยอมรับเงื่อนไขและนโยบายข้างต้น',
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 123, 0, 255),
+                          fontSize: 12),
+                    ),
                     SizedBox(
                       height: 40,
                     ),
@@ -104,9 +127,9 @@ Widget bulletedText(String text) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("• ", style: TextStyle(fontSize: 12)),
+          Text("• ", style: TextStyle(fontSize: 13)),
           Expanded(
-            child: Text(text, style: TextStyle(fontSize: 12)),
+            child: Text(text, style: TextStyle(fontSize: 13)),
           ),
         ],
       ));
