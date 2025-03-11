@@ -36,7 +36,7 @@ class Condition extends StatelessWidget {
                     trailing: Icon(
                       Icons.clear_sharp,
                       color: Color.fromARGB(255, 189, 127, 255),
-                      size: 34,
+                      size: 40,
                     )),
               ),
               Container(
