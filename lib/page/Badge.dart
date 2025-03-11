@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+void main() {
+  runApp(Badge());
+}
+
 class Badge extends StatelessWidget {
   const Badge({super.key});
 
@@ -11,7 +15,7 @@ class Badge extends StatelessWidget {
         ),
         home: Scaffold(
           body: Container(
-           
+           child: Image.asset('assets/imgs/editor_choice.png')
           ),
         ),
     );
