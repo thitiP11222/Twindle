@@ -10,6 +10,7 @@ class BadgeApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Kanit',
       ),
@@ -66,7 +67,8 @@ class BadgeScreen extends StatelessWidget {
                   ),
 
                   // หัวข้อ Trust Badges
-                  const SectionTitle(title: 'Trust Badges – การันตีร้านค้าสุดปัง'),
+                  const SectionTitle(
+                      title: 'Trust Badges – การันตีร้านค้าสุดปัง'),
 
                   // Badge Cards
                   BadgeCard(
@@ -98,7 +100,8 @@ class BadgeScreen extends StatelessWidget {
                   BadgeCard(
                     iconPath: 'assets/imgs/Group 56.png',
                     title: 'Hygiene Hero – “สะอาดไร้กังวล”',
-                    description: 'มีรีวิว 5 ดาวเกี่ยวกับความสะอาดมากกว่า 30 รีวิว\n'
+                    description:
+                        'มีรีวิว 5 ดาวเกี่ยวกับความสะอาดมากกว่า 30 รีวิว\n'
                         'เสื้อผ้าผ่าน การอบฆ่าเชื้อ UV / ซักน้ำร้อน 60°C',
                     borderColor: Color.fromARGB(255, 4, 153, 101),
                   ),
@@ -119,12 +122,8 @@ class BadgeScreen extends StatelessWidget {
             Positioned(
               top: 10,
               left: 10,
-              child: IconButton(
-                icon: const Icon(Icons.arrow_back, size: 30, color: Colors.black),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
+              child:
+                  const Icon(Icons.arrow_back, size: 30, color: Colors.black),
             ),
           ],
         ),
@@ -171,6 +170,7 @@ class BadgeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
         side: BorderSide(color: borderColor),
