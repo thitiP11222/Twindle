@@ -1,8 +1,10 @@
 
 import 'package:flutter/material.dart';
+import 'package:twindle_app/page/home.dart';
+import 'package:twindle_app/page/login.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp( HomePage());
 }
 
 class MyApp extends StatelessWidget {
