@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:twindle_app/widget/ProductCard.dart';
+import 'package:twindle_app/widget/ProductList.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+   HomePage({super.key});
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +19,7 @@ class HomePage extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: 40),
               padding: EdgeInsets.only(
-                right: 20,
+                right: 10,
               ),
               child: ListTile(
                 leading: Image.asset('assets/imgs/td_logo.png'),
@@ -27,11 +31,12 @@ class HomePage extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(left: 30, top: 20),
+              margin: EdgeInsets.only( top: 20),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SizedBox(
-                    width: 270, // Set desired width
+                    width: 280, // Set desired width
                     height: 40, // Set desired height
                     child: TextField(
                       decoration: InputDecoration(
@@ -47,9 +52,9 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    width: 40.0,
+                    width: 50.0,
                     height: 40.0,
-                    margin: EdgeInsets.only(left: 15, right: 20),
+                    margin: EdgeInsets.only( right: 10),
                     decoration: BoxDecoration(
                       color: Color.fromARGB(255, 123, 0, 255),
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -77,7 +82,7 @@ class HomePage extends StatelessWidget {
               height: 20,
             ),
             Container(
-              margin: EdgeInsets.only(left: 30, right: 30),
+              margin: EdgeInsets.only(left: 20, right: 20),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -130,7 +135,17 @@ class HomePage extends StatelessWidget {
                         )
                       ],
                     ),
-                  )
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 10),
+                        ProductList(), // ใส่ไว้ใน Column แทน Row
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -140,7 +155,6 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
 
 Widget Brand(String imgPath, String brandName) {
   return Container(
