@@ -2,14 +2,16 @@
 import 'package:flutter/material.dart';
 import 'package:twindle_app/page/home.dart';
 import 'package:twindle_app/page/login.dart';
+import 'package:twindle_app/page/searchResult.dart';
 
 void main() {
+  
   runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
+  
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -17,9 +19,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+          fontFamily: 'Kanit', // Set the global font
+        ),
       home: MainScreen(),
     );
   }

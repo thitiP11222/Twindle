@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:twindle_app/page/searchResult.dart';
 import 'package:twindle_app/widget/ProductCard.dart';
 import 'package:twindle_app/widget/ProductList.dart';
 
@@ -60,7 +61,12 @@ class HomePage extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     ),
                     child: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => SearchResult()), // Replace with your page
+  );
+                        },
                         icon: Icon(
                           Icons.search,
                           color: Colors.white,

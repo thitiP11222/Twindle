@@ -15,6 +15,7 @@ class ProductCard extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
+        color: Colors.white,
         elevation: 2,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
