@@ -4,6 +4,7 @@ import 'package:twindle_app/widget/ProductCard.dart'; // Import ProductCard
 
 class ProductList extends StatelessWidget {
   final List<Product> products = ProductData.products;
+  
 
   ProductList({Key? key}) : super(key: key);
 
