@@ -4,9 +4,7 @@ import 'package:twindle_app/widget/ProductCard.dart';
 import 'package:twindle_app/widget/ProductList.dart';
 
 class HomePage extends StatelessWidget {
-   HomePage({super.key});
-
-
+  HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +30,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.only( top: 20),
+              margin: EdgeInsets.only(top: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -55,7 +53,7 @@ class HomePage extends StatelessWidget {
                   Container(
                     width: 50.0,
                     height: 40.0,
-                    margin: EdgeInsets.only( right: 10),
+                    margin: EdgeInsets.only(right: 10),
                     decoration: BoxDecoration(
                       color: Color.fromARGB(255, 123, 0, 255),
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -63,9 +61,11 @@ class HomePage extends StatelessWidget {
                     child: IconButton(
                         onPressed: () {
                           Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => SearchResult()), // Replace with your page
-  );
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    SearchResult()), // Replace with your page
+                          );
                         },
                         icon: Icon(
                           Icons.search,

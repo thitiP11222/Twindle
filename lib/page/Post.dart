@@ -40,14 +40,20 @@ class _PostState extends State<Post> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: Row(
-                  children: const [
-                    Icon(Icons.arrow_back, size: 30, color: Colors.black),
-                    Spacer(),
-                    Text(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back,
+                          size: 30, color: Colors.black),
+                      onPressed: () {
+                        // ทำงานเมื่อกดปุ่มย้อนกลับ
+                      },
+                    ),
+                    const Spacer(),
+                    const Text(
                       'สร้างรายการสินค้าใหม่',
                       style: TextStyle(fontSize: 22),
                     ),
-                    Spacer(),
+                    const Spacer(),
                   ],
                 ),
               ),
@@ -57,8 +63,10 @@ class _PostState extends State<Post> {
               // 🔹 ข้อมูลทั่วไป
               buildSectionTitle('ข้อมูลทั่วไป'),
               buildTextInputField('ชื่อสินค้า*', 'ชื่อสินค้า'),
-              buildTextInputField('แบรนด์สินค้า*', 'เช่น Zara, Nike, Uniqlo, ไม่ระบุ'),
-              buildTextInputField('หมวดหมู่สินค้า', 'เลือกจากหมวดหมู่ เช่น เสื้อผ้า, กระเป๋า, รองเท้า'),
+              buildTextInputField(
+                  'แบรนด์สินค้า*', 'เช่น Zara, Nike, Uniqlo, ไม่ระบุ'),
+              buildTextInputField('หมวดหมู่สินค้า',
+                  'เลือกจากหมวดหมู่ เช่น เสื้อผ้า, กระเป๋า, รองเท้า'),
 
               // 🔹 อัปโหลดรูปสินค้า
               buildSectionTitle('รูปภาพสินค้า*'),
@@ -77,8 +85,10 @@ class _PostState extends State<Post> {
 
               // 🔹 รายละเอียดสินค้า
               buildSectionTitle('รายละเอียดสินค้า'),
-              buildTextInputField('คำอธิบายสินค้า*', 'ใส่คำอธิบายสินค้าแบบกระชับ เช่น คุณสมบัติเด่น, การใช้งาน'),
-              buildTextInputField('สภาพสินค้า*', 'ตัวเลือก: ใหม่ / ดีมาก / ปานกลาง / มีตำหนิ'),
+              buildTextInputField('คำอธิบายสินค้า*',
+                  'ใส่คำอธิบายสินค้าแบบกระชับ เช่น คุณสมบัติเด่น, การใช้งาน'),
+              buildTextInputField(
+                  'สภาพสินค้า*', 'ตัวเลือก: ใหม่ / ดีมาก / ปานกลาง / มีตำหนิ'),
               buildTextInputField('ราคาขาย', 'ราคาสินค้า เช่น 200 ฿'),
 
               // **ปรับข้อความให้ชิดข้างบนมากขึ้น**
@@ -95,9 +105,11 @@ class _PostState extends State<Post> {
               // 🔹 ราคาค่าเช่า
               buildSectionTitle('ราคาค่าเช่า'),
 
-              buildRentalTextField('ราคาค่าเช่า 3 วัน*', 'กรอกราคา 3 วัน / 370 ฿', 'ระยะเวลาการเช่า 3 วัน'),
+              buildRentalTextField('ราคาค่าเช่า 3 วัน*',
+                  'กรอกราคา 3 วัน / 370 ฿', 'ระยะเวลาการเช่า 3 วัน'),
               const SizedBox(height: 10),
-              buildRentalTextField('ราคาค่าเช่า 5 วัน*', 'กรอกราคา เช่น 5 วัน / 570 ฿', 'ระยะเวลาการเช่า 5 วัน'),
+              buildRentalTextField('ราคาค่าเช่า 5 วัน*',
+                  'กรอกราคา เช่น 5 วัน / 570 ฿', 'ระยะเวลาการเช่า 5 วัน'),
 
               Padding(
                 padding: const EdgeInsets.only(left: 50, top: 2),
@@ -125,7 +137,11 @@ class _PostState extends State<Post> {
                   },
                   child: const Text(
                     'โพสต์สินค้า',
-                    style: TextStyle(fontSize: 18, color: Colors.black,fontWeight: FontWeight.w700,),
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
               ),
@@ -176,7 +192,8 @@ class _PostState extends State<Post> {
   }
 
   // 🔹 ฟังก์ชันสร้างช่องกรอกราคาค่าเช่า
-  Widget buildRentalTextField(String label, String placeholder, String duration) {
+  Widget buildRentalTextField(
+      String label, String placeholder, String duration) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 50),
       child: Row(
@@ -227,14 +244,16 @@ class _PostState extends State<Post> {
               ? Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
-                    Icon(Icons.add_circle_outline, size: 40, color: Colors.purple),
+                    Icon(Icons.add_circle_outline,
+                        size: 40, color: Colors.purple),
                     SizedBox(height: 5),
                     Text('อัปโหลดรูปภาพสินค้า', style: TextStyle(fontSize: 14)),
                   ],
                 )
               : ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.file(_image!, width: 300, height: 150, fit: BoxFit.cover),
+                  child: Image.file(_image!,
+                      width: 300, height: 150, fit: BoxFit.cover),
                 ),
         ),
       ),
