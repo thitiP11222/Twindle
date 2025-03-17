@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:twindle_app/model/Product.dart'; // Import Product Model
+import 'package:twindle_app/model/Seller.dart';
 import 'package:twindle_app/widget/ProductCard.dart'; // Import ProductCard
 
 class ProductList extends StatelessWidget {
   final List<Product> products = ProductData.products;
-  
+  final List<Seller> sellers = ProductData.sellers;
 
   ProductList({Key? key}) : super(key: key);
 
@@ -17,7 +18,7 @@ class ProductList extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: products.length,
               itemBuilder: (context, index) {
-                return ProductCard(product: products[index]); // Pass Product Object
+                return ProductCard(product: products[index],sellers: sellers,); // Pass Product Object
               },
             )
           : Center(child: Text("No Products Available")),
