@@ -127,18 +127,23 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 50),
+                    margin: EdgeInsets.only(top: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('New Arrival',
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w500)),
-                        Text(
+                        TextButton(onPressed: () {
+                          Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => SearchResult()), // Replace with your page
+  );
+                        }, child: Text(
                           'Show All',
                           style: TextStyle(
                               color: Color.fromARGB(255, 123, 0, 255)),
-                        )
+                        ))
                       ],
                     ),
                   ),

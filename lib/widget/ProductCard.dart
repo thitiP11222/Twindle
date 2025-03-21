@@ -1,23 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:twindle_app/model/Product.dart';
+import 'package:twindle_app/model/Seller.dart';
 import 'package:twindle_app/page/ProductDetail.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
-
-  const ProductCard({Key? key, required this.product}) : super(key: key);
+  final List<Seller> sellers;
+  const ProductCard({Key? key, required this.product,required this.sellers}) : super(key: key);
 
   
 
   @override
   Widget build(BuildContext context) {
+    Seller? seller = sellers.firstWhere(
+      (s) => s.sellerId == product.sellerId,
+      orElse: () => Seller(
+        sellerId: "Unknown",
+        sellerName: "No Seller Found",
+        sellerImage: "assets/imgs/default_seller.png",
+        rating: "N/A",
+        contactInfo: "No Contact Info",
+      ),
+    );
     return GestureDetector(
       onTap: () {
         // เมื่อกดที่การ์ด จะนำไปยังหน้ารายละเอียดสินค้า
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProductDetailPage(product: product),
+            builder: (context) => ProductDetailPage(product: product, seller: seller),
           ),
         );
       },
@@ -79,7 +90,7 @@ class ProductCard extends StatelessWidget {
                     SizedBox(height: 4),
                     // ชื่อผู้ขาย
                     Text(
-                      product.sellerName,
+                      seller.sellerName,
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.grey,

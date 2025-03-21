@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:twindle_app/model/Product.dart';
+import 'package:twindle_app/model/Seller.dart';
 import 'package:twindle_app/widget/ProductCard.dart';
 
 class SearchResult extends StatelessWidget {
   final List<Product> products = ProductData.products;
+  final List<Seller> sellers = ProductData.sellers;
   SearchResult({Key? key}) : super(key: key);
 
   @override
@@ -49,7 +51,7 @@ class SearchResult extends StatelessWidget {
             childAspectRatio: 0.85,//ความยาวพทของcard
           ),
           itemCount: products.length,
-          itemBuilder: (context, index) => ProductCard(product: products[index]),
+          itemBuilder: (context, index) => ProductCard(product: products[index],sellers: sellers,),
         )
       : Center(child: Text("No Products Available")),
 ),
