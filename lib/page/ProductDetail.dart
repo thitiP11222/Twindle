@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:twindle_app/model/Product.dart';
 import 'package:twindle_app/model/Seller.dart';
+import 'package:twindle_app/page/Chat.dart';
 import 'package:twindle_app/page/condition.dart';
 
 class ProductDetailPage extends StatelessWidget {
@@ -132,7 +133,12 @@ class ProductDetailPage extends StatelessWidget {
                         Expanded(
                           child: ElevatedButton(
                             onPressed: () {
-                              // Action for the button
+                              Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    Chat(product: product, seller: seller),), // Replace with your page
+                          );
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor:
