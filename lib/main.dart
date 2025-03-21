@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:twindle_app/page/Profile.dart';
 import 'package:twindle_app/page/home.dart';
 import 'package:twindle_app/page/login.dart';
 import 'package:twindle_app/page/searchResult.dart';
