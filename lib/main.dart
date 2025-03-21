@@ -1,6 +1,11 @@
 
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:twindle_app/page/Home.dart';
+=======
+import 'package:twindle_app/page/Profile.dart';
+import 'package:twindle_app/page/home.dart';
+>>>>>>> 67c8ff02a1a8a5260f3e061a7b3a6a80999a2dd8
 import 'package:twindle_app/page/login.dart';
 import 'package:twindle_app/page/searchResult.dart';
 import 'package:twindle_app/page/Post.dart';
