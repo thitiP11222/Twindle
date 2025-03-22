@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:twindle_app/page/Profile.dart';
 import 'package:twindle_app/page/home.dart';
@@ -7,13 +6,12 @@ import 'package:twindle_app/page/searchResult.dart';
 import 'package:twindle_app/page/Post.dart';
 
 void main() {
-  
-  runApp( MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -21,8 +19,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-          fontFamily: 'Kanit', // Set the global font
-        ),
+        fontFamily: 'Kanit', // Set the global font
+      ),
       home: MainScreen(),
     );
   }
@@ -36,15 +34,25 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = [
-    HomePage(),
+  final List<Widget> _pages = [HomePage(), Post()];
 
-  ];
+  void _onItemTapped(int index) async {
+    if (index == 1) {
+      final result = await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Post()),
+      );
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+      if (result == 0) {
+        setState(() {
+          _selectedIndex = 0; // กลับไปหน้า Home
+        });
+      }
+    } else {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
   }
 
   @override
@@ -83,4 +91,3 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 }
-

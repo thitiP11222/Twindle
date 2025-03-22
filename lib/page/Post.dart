@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:twindle_app/main.dart';
 import 'dart:io';
+
+import 'package:twindle_app/page/home.dart';
 
 void main() {
   runApp(const Post());
@@ -45,7 +48,8 @@ class _PostState extends State<Post> {
                       icon: const Icon(Icons.arrow_back,
                           size: 30, color: Colors.black),
                       onPressed: () {
-                        // ทำงานเมื่อกดปุ่มย้อนกลับ
+                        // ส่งค่า index กลับไปที่ MainScreen เพื่อให้แสดงหน้า Home (index 0)
+                        Navigator.of(context).pop(0); // ส่งค่ากลับไป
                       },
                     ),
                     const Spacer(),
@@ -133,7 +137,8 @@ class _PostState extends State<Post> {
                     ),
                   ),
                   onPressed: () {
-                    // ทำงานเมื่อกดปุ่มโพสต์สินค้า
+                    // หลังโพสต์สำเร็จ กลับหน้าแรก (Home)
+                    Navigator.pop(context);
                   },
                   child: const Text(
                     'โพสต์สินค้า',
