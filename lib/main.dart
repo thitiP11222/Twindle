@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:twindle_app/page/Home.dart';
 import 'package:twindle_app/page/Profile.dart';
+import 'package:twindle_app/page/Profile.dart';
 import 'package:twindle_app/page/login.dart';
 import 'package:twindle_app/page/searchResult.dart';
 import 'package:twindle_app/page/Post.dart';

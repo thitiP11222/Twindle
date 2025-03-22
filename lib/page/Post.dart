@@ -230,7 +230,7 @@ class _PostState extends State<Post> {
   // 🔹 ฟังก์ชันสร้างช่องอัปโหลดรูปภาพ
   Widget buildImagePicker() {
     return Padding(
-      padding: const EdgeInsets.only(left: 50),
+      padding: const EdgeInsets.symmetric(horizontal: 45),
       child: GestureDetector(
         onTap: _pickImage,
         child: Container(
