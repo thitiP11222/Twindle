@@ -104,66 +104,69 @@ class HomePage extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            Container(
-              alignment: Alignment.centerLeft,
-              padding:
-                  EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
-              color: Colors.white,
-              child: Column(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start, // Ensures left alignment
-                children: [
-                  Text(
-                    'Shop By Price',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(height: 10), // Adds spacing between text and images
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Image.asset('assets/imgs/brand/price-home/1.png'),
-                      Image.asset('assets/imgs/brand/price-home/2.png'),
-                      Image.asset('assets/imgs/brand/price-home/3.png'),
-                    ],
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('New Arrival',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w500)),
-                        TextButton(onPressed: () {
-                          Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => SearchResult()), // Replace with your page
-  );
-                        }, child: Text(
-                          'Show All',
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 123, 0, 255)),
-                        ))
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 10),
-                        ProductList(), // ใส่ไว้ใน Column แทน Row
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            shopByPrice_banner(context),
           ],
         ),
       ),
     );
+  }
+
+  Container shopByPrice_banner(BuildContext context) {
+    return Container(
+            alignment: Alignment.centerLeft,
+            padding:
+                EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
+            color: Colors.white,
+            child: Column(
+              crossAxisAlignment:
+                  CrossAxisAlignment.start, // Ensures left alignment
+              children: [
+                Text(
+                  'Shop By Price',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+                SizedBox(height: 10), // Adds spacing between text and images
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Image.asset('assets/imgs/brand/price-home/1.png'),
+                    Image.asset('assets/imgs/brand/price-home/2.png'),
+                    Image.asset('assets/imgs/brand/price-home/3.png'),
+                  ],
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('New Arrival',
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w500)),
+                      TextButton(onPressed: () {
+                        Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => SearchResult()), // Replace with your page
+);
+                      }, child: Text(
+                        'Show All',
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 123, 0, 255)),
+                      ))
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 5),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ProductList(), // ใส่ไว้ใน Column แทน Row
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
   }
 }
 
