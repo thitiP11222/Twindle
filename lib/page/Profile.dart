@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:twindle_app/model/Product.dart';
+import 'package:twindle_app/model/Seller.dart';
+import 'package:twindle_app/page/Chat.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+  final Product? product;
+  final Seller seller;
+  const ProfilePage({super.key, this.product, required this.seller});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +23,12 @@ class ProfilePage extends StatelessWidget {
 
                 SizedBox(height: 22),
 
-                Icon(Icons.arrow_back, size: 30, color: Colors.black),
-
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Icon(Icons.arrow_back, size: 30, color: Colors.black),
+                ),
                 SizedBox(height: 20),
 
                 // 🏆 Profile Header
@@ -29,16 +38,16 @@ class ProfilePage extends StatelessWidget {
                     CircleAvatar(
                       radius: 40,
                       backgroundImage:
-                          AssetImage('assets/imgs/brand/b4.png'), // ใส่รูปจริง
+                          AssetImage(seller.sellerImage), // ใส่รูปจริง
                     ),
                     SizedBox(width: 12),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Punyawee",
+                        Text(seller.sellerName,
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold)),
-                        Text("@Fari_yy",
+                        Text(seller.sellerId,
                             style: TextStyle(color: Colors.grey, fontSize: 14)),
                         SizedBox(height: 4),
                         Row(
@@ -53,10 +62,19 @@ class ProfilePage extends StatelessWidget {
                     Spacer(),
                     Column(
                       children: [
-                        Icon(Icons.chat, color: Colors.green, size: 26),
-                        SizedBox(height: 10),
+                        TextButton(onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      Chat(seller: seller),
+                                ), // Replace with your page
+                              );
+                            }, child: Icon(Icons.chat, color: Colors.green, size: 26),),
+
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color.fromARGB(255, 8, 0, 255),
                             shape: RoundedRectangleBorder(
@@ -273,6 +291,5 @@ void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: ThemeData(fontFamily: 'Kanit'),
-    home: ProfilePage(),
   ));
 }
