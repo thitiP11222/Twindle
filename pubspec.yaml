@@ -70,6 +70,9 @@ flutter:
   assets:
     - assets/imgs/
     - assets/imgs/brand/
+    - assets/imgs/product/
+    - assets/imgs/product/p1.png
+    - assets/imgs/product/p2.png
     - assets/imgs/brand/price-home/
     - assets/imgs/Twindle Logo.png
     - assets/imgs/td_logo.png

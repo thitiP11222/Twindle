@@ -17,23 +17,36 @@ class ProductDetailPage extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Kanit'),
       home: Scaffold(
+          extendBodyBehindAppBar: true,
+
         appBar: AppBar(
-          elevation: 0,
+          backgroundColor: Colors.transparent, // 👈 ทำให้โปร่งใส
+  elevation: 0, // 👈 ไม่มีเงา
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () => Navigator.pop(context),
           ),
-          title: Text(
-            "Product Detail",
-            style: TextStyle(color: Colors.black),
-          ),
+          
         ),
         body: SingleChildScrollView(
+          
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset(product.imagePath,
-                  width: double.infinity, fit: BoxFit.cover),
+              Padding(
+  padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+  child: ClipRRect(
+    borderRadius: BorderRadius.only(
+      bottomLeft: Radius.circular(20),
+      bottomRight: Radius.circular(20),
+    ),
+    child: Image.asset(
+      product.imagePath,
+      width: double.infinity,
+      fit: BoxFit.cover,
+    ),
+  ),
+),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -82,7 +95,7 @@ class ProductDetailPage extends StatelessWidget {
                         ),
                       ),
                       padding:
-                          EdgeInsets.symmetric(vertical: 8), // Optional padding
+                          EdgeInsets.symmetric(vertical: 5), // Optional padding
                       child: ListTile(
                         leading: CircleAvatar(
                             backgroundImage: AssetImage(seller.sellerImage),
@@ -100,28 +113,7 @@ class ProductDetailPage extends StatelessWidget {
                                     TextStyle(fontSize: 14, color: Colors.grey),
                               ),
                             trailing: TextButton(onPressed: (){}, child: Icon(Icons.arrow_forward_ios,color: Colors.purple,),),
-                        // children: [
-                        //   CircleAvatar(
-                        //     backgroundImage: AssetImage(seller.sellerImage),
-                        //     radius: 20,
-                        //   ),
-                        //   SizedBox(width: 10),
-                        //   Column(
-                        //     crossAxisAlignment: CrossAxisAlignment.start,
-                        //     children: [
-                        //       Text(
-                        //         seller.sellerName,
-                        //         style: TextStyle(
-                        //             fontSize: 16, fontWeight: FontWeight.bold),
-                        //       ),
-                        //       Text(
-                        //         "Rating: ${seller.rating}",
-                        //         style:
-                        //             TextStyle(fontSize: 14, color: Colors.grey),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ],
+                        
                       ),
                     ),
 

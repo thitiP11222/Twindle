@@ -40,7 +40,7 @@ class ProductCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
           color: Colors.white,
-          elevation: 2,
+          elevation: 3,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

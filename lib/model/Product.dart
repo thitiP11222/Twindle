@@ -66,7 +66,7 @@ class ProductData {
   static final List<Product> products = [
     Product(
       productId: "P001",
-      imagePath: "assets/imgs/brand/price-home/3.png",
+      imagePath: "assets/imgs/product/p2.png",
       productName: "Floral Dress",
       price: "\450",
       sRentprice: "\100",
@@ -79,7 +79,7 @@ class ProductData {
     ),
     Product(
       productId: "P002",
-      imagePath: "assets/imgs/brand/price-home/3.png",
+      imagePath: "assets/imgs/product/p1.png",
       productName: "Boho Top",
       price: "\300",
       sellerId: "S002", // 🔗 Connect to Seller
