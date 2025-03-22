@@ -3,10 +3,10 @@ import 'package:twindle_app/model/Product.dart';
 import 'package:twindle_app/model/Seller.dart';
 
 class Chat extends StatefulWidget {
-  final Product product;
+  final Product? product;
   final Seller seller;
 
-  const Chat({Key? key, required this.product, required this.seller})
+  const Chat({Key? key,this.product, required this.seller})
       : super(key: key);
 
   @override
@@ -85,6 +85,7 @@ class _ChatState extends State<Chat> {
                 ],
               ),
             ),
+            if (widget.product != null)
             _offerBox(),
             _chatInputField(),
           ],
@@ -109,7 +110,7 @@ class _ChatState extends State<Chat> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Image.asset(
-                  widget.product.imagePath,
+                  widget.product!.imagePath,
                   width: 120,
                   height: 150,
                   fit: BoxFit.cover,
@@ -120,7 +121,7 @@ class _ChatState extends State<Chat> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(widget.product.productName,
+                    Text(widget.product!.productName,
                         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                     SizedBox(height: 5),
                     Text("ราคาขาย: 950 ฿", style: TextStyle(fontSize: 16)),

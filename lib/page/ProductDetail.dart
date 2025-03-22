@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:twindle_app/model/Product.dart';
 import 'package:twindle_app/model/Seller.dart';
 import 'package:twindle_app/page/Chat.dart';
+import 'package:twindle_app/page/Profile.dart';
 import 'package:twindle_app/page/condition.dart';
 
 class ProductDetailPage extends StatelessWidget {
@@ -17,36 +18,34 @@ class ProductDetailPage extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Kanit'),
       home: Scaffold(
-          extendBodyBehindAppBar: true,
-
+        extendBodyBehindAppBar: true,
         appBar: AppBar(
           backgroundColor: Colors.transparent, // 👈 ทำให้โปร่งใส
-  elevation: 0, // 👈 ไม่มีเงา
+          elevation: 0, // 👈 ไม่มีเงา
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () => Navigator.pop(context),
           ),
-          
         ),
         body: SingleChildScrollView(
-          
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-  padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-  child: ClipRRect(
-    borderRadius: BorderRadius.only(
-      bottomLeft: Radius.circular(20),
-      bottomRight: Radius.circular(20),
-    ),
-    child: Image.asset(
-      product.imagePath,
-      width: double.infinity,
-      fit: BoxFit.cover,
-    ),
-  ),
-),
+                padding:
+                    EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                  ),
+                  child: Image.asset(
+                    product.imagePath,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -98,22 +97,31 @@ class ProductDetailPage extends StatelessWidget {
                           EdgeInsets.symmetric(vertical: 5,horizontal: 3), // Optional padding
                       child: ListTile(
                         leading: CircleAvatar(
-                            backgroundImage: AssetImage(seller.sellerImage),
-                            radius: 20,
-                          ),
-
+                          backgroundImage: AssetImage(seller.sellerImage),
+                          radius: 20,
+                        ),
                         title: Text(
-                                seller.sellerName,
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
-                              ),
+                          seller.sellerName,
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
                         subtitle: Text(
-                                "Rating: ${seller.rating}",
-                                style:
-                                    TextStyle(fontSize: 14, color: Colors.grey),
-                              ),
-                            trailing: TextButton(onPressed: (){}, child: Icon(Icons.arrow_forward_ios,color: Colors.purple,),),
-                        
+                          "Rating: ${seller.rating}",
+                          style: TextStyle(fontSize: 14, color: Colors.grey),
+                        ),
+                        trailing: TextButton(
+                          onPressed: () {Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      ProfilePage(product: product, seller: seller),
+                                ), // Replace with your page
+                              );},
+                          child: Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.purple,
+                          ),
+                        ),
                       ),
                     ),
 
@@ -126,11 +134,12 @@ class ProductDetailPage extends StatelessWidget {
                           child: ElevatedButton(
                             onPressed: () {
                               Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    Chat(product: product, seller: seller),), // Replace with your page
-                          );
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      Chat(product: product, seller: seller),
+                                ), // Replace with your page
+                              );
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor:

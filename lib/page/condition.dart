@@ -33,13 +33,15 @@ class Condition extends StatelessWidget {
                             fontSize: 18),
                       ),
                     ),
-                    trailing: TextButton(onPressed: (){
-                       Navigator.pop(context);
-                    }, child: Icon(
-                      Icons.clear_sharp,
-                      color: Color.fromARGB(255, 189, 127, 255),
-                      size: 40,
-                    ))),
+                    trailing: TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Icon(
+                          Icons.clear_sharp,
+                          color: Color.fromARGB(255, 189, 127, 255),
+                          size: 40,
+                        ))),
               ),
               Container(
                 margin: EdgeInsets.only(top: 20),
