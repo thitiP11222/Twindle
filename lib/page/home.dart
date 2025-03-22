@@ -5,6 +5,9 @@ import 'package:twindle_app/widget/ProductList.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
+  
+  final TextEditingController _searchController = TextEditingController(); // 👈 เพิ่ม controller
+
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +41,10 @@ class HomePage extends StatelessWidget {
                     width: 280, // Set desired width
                     height: 40, // Set desired height
                     child: TextField(
+                      controller: _searchController, // 👈 ผูก controller
                       decoration: InputDecoration(
-                        labelText: 'Searching...',
-                        labelStyle: TextStyle(fontSize: 14),
+                        hintText: 'Searching...',
+                        hintStyle: TextStyle(fontSize: 14),
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
@@ -60,11 +64,12 @@ class HomePage extends StatelessWidget {
                     ),
                     child: IconButton(
                         onPressed: () {
+                          String keyword = _searchController.text.trim();
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    SearchResult()), // Replace with your page
+                                    SearchResult(keyword: keyword)), // 👈 ส่ง keyword ไป
                           );
                         },
                         icon: Icon(
@@ -145,7 +150,7 @@ class HomePage extends StatelessWidget {
                       TextButton(onPressed: () {
                         Navigator.push(
   context,
-  MaterialPageRoute(builder: (context) => SearchResult()), // Replace with your page
+  MaterialPageRoute(builder: (context) => SearchResult(keyword: '',)), // Replace with your page
 );
                       }, child: Text(
                         'Show All',
