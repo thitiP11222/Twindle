@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:twindle_app/main.dart';
+import 'package:twindle_app/page/Post%20Success.dart';
 import 'dart:io';
 
 import 'package:twindle_app/page/home.dart';
@@ -138,7 +139,11 @@ class _PostState extends State<Post> {
                   ),
                   onPressed: () {
                     // หลังโพสต์สำเร็จ กลับหน้าแรก (Home)
-                    Navigator.pop(context);
+                    Navigator.push( context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      Postsuccess(),
+                                ),);
                   },
                   child: const Text(
                     'โพสต์สินค้า',

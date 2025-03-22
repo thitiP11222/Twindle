@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:twindle_app/page/home.dart';
 
 void main() {
   runApp(const Postsuccess());
@@ -19,11 +20,7 @@ class Postsuccess extends StatelessWidget {
           child: Stack(
             children: [
               // Back Button (Fixed at the Top-Left)
-              Positioned(
-                top: 30, // Adjusted for better alignment
-                left: 25,
-                child: Icon(Icons.arrow_back, size: 30, color: Colors.black),
-              ),
+              TextButton(onPressed:(){Navigator.pop(context);}, child: Icon(Icons.arrow_back, size: 30, color: Colors.black),),
 
               // Centered Column for Content
               Center(
@@ -64,8 +61,13 @@ class Postsuccess extends StatelessWidget {
 
                     // Centered Finish Button
                     ElevatedButton(
-                      onPressed: () {
-                        // Add action here
+                   
+                        onPressed: () {
+                    Navigator.push( context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      HomePage(),
+                                ),);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(
