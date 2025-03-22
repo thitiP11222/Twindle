@@ -95,7 +95,7 @@ class ProductDetailPage extends StatelessWidget {
                         ),
                       ),
                       padding:
-                          EdgeInsets.symmetric(vertical: 5), // Optional padding
+                          EdgeInsets.symmetric(vertical: 5,horizontal: 3), // Optional padding
                       child: ListTile(
                         leading: CircleAvatar(
                             backgroundImage: AssetImage(seller.sellerImage),
