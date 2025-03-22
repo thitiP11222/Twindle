@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:twindle_app/model/Product.dart';
 import 'package:twindle_app/model/Seller.dart';
+import 'package:twindle_app/page/Badge.dart';
 import 'package:twindle_app/page/Chat.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -62,19 +63,20 @@ class ProfilePage extends StatelessWidget {
                     Spacer(),
                     Column(
                       children: [
-                        TextButton(onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      Chat(seller: seller),
-                                ), // Replace with your page
-                              );
-                            }, child: Icon(Icons.chat, color: Colors.green, size: 26),),
-
-                        ElevatedButton(
+                        TextButton(
                           onPressed: () {
-                            },
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Chat(seller: seller),
+                              ), // Replace with your page
+                            );
+                          },
+                          child:
+                              Icon(Icons.chat, color: Colors.green, size: 26),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {},
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color.fromARGB(255, 8, 0, 255),
                             shape: RoundedRectangleBorder(
@@ -95,32 +97,44 @@ class ProfilePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                      decoration: BoxDecoration(
-                        color: Color.fromARGB(
-                            255, 242, 231, 255), // พื้นหลังสีอ่อน
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min, // ให้ขนาดพอดีกับเนื้อหา
-                        children: [
-                          Image.asset(
-                            'assets/imgs/award_star.png', // ไอคอนจาก Asset
-                            width: 15, // ปรับขนาดไอคอนให้พอดี
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(
+                              255, 242, 231, 255), // พื้นหลังสีอ่อน
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                  const  BadgeScreen(), // เปลี่ยนไปหน้า Badge
+                              ),
+                            );
+                          },
+                          style: TextButton.styleFrom(
+                              padding: EdgeInsets.zero), // ✅ ลบ padding จากปุ่ม
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Image.asset(
+                                'assets/imgs/award_star.png',
+                                width: 15,
+                              ),
+                              SizedBox(width: 6),
+                              Text(
+                                "Trusted Treasure",
+                                style: TextStyle(
+                                  color: Color(0xFF7B00FF),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
                           ),
-                          SizedBox(width: 6), // ระยะห่างระหว่างไอคอนและข้อความ
-                          Text(
-                            "Trusted Treasure",
-                            style: TextStyle(
-                              color: Color(0xFF7B00FF), // สีตัวหนังสือม่วง
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                        )),
                     SizedBox(width: 20),
                     Container(
                       padding:
