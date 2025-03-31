@@ -53,6 +53,8 @@ class ProductData {
       sellerImage: "assets/imgs/seller.jpg",
       rating: "4.5",
       contactInfo: "Contact via Line: @trendystore",
+      badges: ["trusted", "clean"], // ✅ ใส่ badge
+
     ),
     Seller(
       sellerId: "S002",
@@ -60,6 +62,8 @@ class ProductData {
       sellerImage: "assets/imgs/seller.jpg",
       rating: "4.7",
       contactInfo: "Contact via Instagram: @bohochic",
+      badges: ["trusted"],
+
     ),
   ];
 

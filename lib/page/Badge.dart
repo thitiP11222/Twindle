@@ -10,11 +10,7 @@ class BadgeApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'Kanit',
-      ),
-      home: const BadgeScreen(),
+      home: BadgeScreen(),
     );
   }
 }
@@ -24,7 +20,12 @@ class BadgeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: 'Kanit',
+      ),
+      home: Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Stack(
@@ -123,11 +124,14 @@ class BadgeScreen extends StatelessWidget {
               top: 10,
               left: 10,
               child:
-                  const Icon(Icons.arrow_back, size: 30, color: Colors.black),
+                  IconButton(onPressed: (){
+                    Navigator.pop(context);
+                  }, icon: Icon(Icons.arrow_back, size: 30, color: Colors.black),)
             ),
           ],
         ),
       ),
+    ),
     );
   }
 }

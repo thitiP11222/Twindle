@@ -11,7 +11,10 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(fontFamily: 'Kanit'),
+      home: Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -93,79 +96,8 @@ class ProfilePage extends StatelessWidget {
                 SizedBox(height: 15),
 
                 // 🏷 Badges (อยู่ใต้รูปโปรไฟล์)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: Color.fromARGB(
-                              255, 242, 231, 255), // พื้นหลังสีอ่อน
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                  const  BadgeScreen(), // เปลี่ยนไปหน้า Badge
-                              ),
-                            );
-                          },
-                          style: TextButton.styleFrom(
-                              padding: EdgeInsets.zero), // ✅ ลบ padding จากปุ่ม
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Image.asset(
-                                'assets/imgs/award_star.png',
-                                width: 15,
-                              ),
-                              SizedBox(width: 6),
-                              Text(
-                                "Trusted Treasure",
-                                style: TextStyle(
-                                  color: Color(0xFF7B00FF),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ],
-                          ),
-                        )),
-                    SizedBox(width: 20),
-                    Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                      decoration: BoxDecoration(
-                        color: Color.fromARGB(
-                            255, 215, 255, 241), // พื้นหลังสีอ่อน
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min, // ให้ขนาดพอดีกับเนื้อหา
-                        children: [
-                          Image.asset(
-                            'assets/imgs/sanitizer (3).png', // ไอคอนจาก Asset
-                            width: 15, // ปรับขนาดไอคอนให้พอดี
-                          ),
-                          SizedBox(width: 6), // ระยะห่างระหว่างไอคอนและข้อความ
-                          Text(
-                            "Deep Clean Master",
-                            style: TextStyle(
-                              color: Color.fromARGB(
-                                  255, 4, 153, 101), // สีตัวหนังสือม่วง
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                buildBadges(seller, context),
+
 
                 SizedBox(height: 18),
 
@@ -297,8 +229,86 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
       ),
+    )
     );
   }
+
+  Widget buildBadges(Seller seller, BuildContext context) {
+  List<Widget> badges = [];
+
+  if (seller.badges.contains("trusted")) {
+    badges.add(
+      GestureDetector(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) => const BadgeScreen()));
+        },
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          decoration: BoxDecoration(
+            color: Color.fromARGB(255, 242, 231, 255),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset('assets/imgs/award_star.png', width: 15),
+              SizedBox(width: 6),
+              Text(
+                "Trusted Treasure",
+                style: TextStyle(
+                  color: Color(0xFF7B00FF),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  if (seller.badges.contains("clean")) {
+    badges.add(
+      GestureDetector(
+        onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => const BadgeScreen()));
+        },
+        child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        decoration: BoxDecoration(
+          color: Color.fromARGB(255, 215, 255, 241),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset('assets/imgs/sanitizer (3).png', width: 15),
+            SizedBox(width: 6),
+            Text(
+              "Deep Clean Master",
+              style: TextStyle(
+                color: Color.fromARGB(255, 4, 153, 101),
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+            ),
+          ],
+        ),
+      ),
+      )
+    );
+  }
+
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: badges
+        .expand((widget) => [widget, SizedBox(width: 12)])
+        .toList()
+      ..removeLast(),
+  );
+}
+
 }
 
 void main() {

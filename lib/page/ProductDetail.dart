@@ -81,99 +81,13 @@ class ProductDetailPage extends StatelessWidget {
                       style: TextStyle(fontSize: 14, color: Colors.grey),
                     ),
                     SizedBox(height: 15),
-                    // ✅ Show Seller Details
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border(
-                          top: BorderSide(
-                              color: const Color.fromARGB(138, 158, 158, 158),
-                              width: 0.4), // Top border
-                          bottom: BorderSide(
-                              color: const Color.fromARGB(138, 158, 158, 158),
-                              width: 0.4), // Bottom border
-                        ),
-                      ),
-                      padding:
-                          EdgeInsets.symmetric(vertical: 5,horizontal: 3), // Optional padding
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: AssetImage(seller.sellerImage),
-                          radius: 20,
-                        ),
-                        title: Text(
-                          seller.sellerName,
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        subtitle: Text(
-                          "Rating: ${seller.rating}",
-                          style: TextStyle(fontSize: 14, color: Colors.grey),
-                        ),
-                        trailing: TextButton(
-                          onPressed: () {Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      ProfilePage(product: product, seller: seller),
-                                ), // Replace with your page
-                              );},
-                          child: Icon(
-                            Icons.arrow_forward_ios,
-                            color: Colors.purple,
-                          ),
-                        ),
-                      ),
-                    ),
+                    
+
+                    _profile(context),
 
                     // Text(product.description, style: TextStyle(fontSize: 14)),
                     SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      Chat(product: product, seller: seller),
-                                ), // Replace with your page
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  Color(0xFFE7D7FB), // Light purple color
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              padding: EdgeInsets.symmetric(vertical: 12),
-                            ),
-                            child: Text(
-                              "ติดต่อร้านค้า",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: Color(0xFFE0FBF3), // Light greenish color
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Icon(
-                            Icons.favorite_border, // Heart icon
-                            color: Colors.green,
-                            size: 28,
-                          ),
-                        ),
-                      ],
-                    ),
+                    _contactButton(context),
                     SizedBox(height: 25),
                     Text(
                       "รายละเอียดสินค้า",
@@ -402,5 +316,122 @@ class ProductDetailPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Row _contactButton(BuildContext context) {
+    return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    Chat(product: product, seller: seller),
+                              ), // Replace with your page
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                Color(0xFFE7D7FB), // Light purple color
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            padding: EdgeInsets.symmetric(vertical: 12),
+                          ),
+                          child: Text(
+                            "ติดต่อร้านค้า",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Color(0xFFE0FBF3), // Light greenish color
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Icon(
+                          Icons.favorite_border, // Heart icon
+                          color: Colors.green,
+                          size: 28,
+                        ),
+                      ),
+                    ],
+                  );
+  }
+
+  ConstrainedBox _profile(BuildContext context) {
+    return ConstrainedBox(
+                    constraints:
+                        BoxConstraints(minHeight: 50), // 👈 บังคับความสูงรวม
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 10), // ลด padding
+                      decoration: BoxDecoration(
+                        border: Border(
+                          top: BorderSide(
+                            color: Color.fromARGB(138, 158, 158, 158),
+                            width: 0.4,
+                          ),
+                          bottom: BorderSide(
+                            color: Color.fromARGB(138, 158, 158, 158),
+                            width: 0.4,
+                          ),
+                        ),
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          CircleAvatar(
+                            radius: 20,
+                            backgroundImage: AssetImage(seller.sellerImage),
+                          ),
+                          SizedBox(width: 8),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize
+                                .min, // 👈 ให้ Column ใช้พื้นที่เท่าที่จำเป็น
+                            children: [
+                              Text(
+                                seller.sellerName,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14),
+                              ),
+                              Text(
+                                'Rating: ${seller.rating}',
+                                style: TextStyle(
+                                    fontSize: 13, color: Colors.grey),
+                              ),
+                            ],
+                          ),
+                          Spacer(),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProfilePage(
+                                      product: product, seller: seller),
+                                ), // Replace with your page
+                              );
+                            },
+                            child: Icon(
+                              Icons.arrow_forward_ios,
+                              color: Colors.purple,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
   }
 }

@@ -20,7 +20,12 @@ class Postsuccess extends StatelessWidget {
           child: Stack(
             children: [
               // Back Button (Fixed at the Top-Left)
-              TextButton(onPressed:(){Navigator.pop(context);}, child: Icon(Icons.arrow_back, size: 30, color: Colors.black),),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(Icons.arrow_back, size: 30, color: Colors.black),
+              ),
 
               // Centered Column for Content
               Center(
@@ -61,13 +66,8 @@ class Postsuccess extends StatelessWidget {
 
                     // Centered Finish Button
                     ElevatedButton(
-                   
-                        onPressed: () {
-                    Navigator.push( context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      HomePage(),
-                                ),);
+                      onPressed: () {
+                        Navigator.popUntil(context, (route) => route.isFirst);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(

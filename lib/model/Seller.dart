@@ -4,6 +4,8 @@ class Seller {
   final String sellerImage;
   final String rating;
   final String contactInfo;
+  final List<String> badges; // ✅ เพิ่ม badges
+
 
   Seller({
     required this.sellerId,
@@ -11,15 +13,17 @@ class Seller {
     required this.sellerImage,
     required this.rating,
     required this.contactInfo,
+    required this.badges,
+
   });
 
-  factory Seller.fromJson(Map<String, dynamic> json) {
-    return Seller(
-      sellerId: json["sellerId"] ?? "Unknown",
-      sellerName: json["sellerName"] ?? "Unknown Seller",
-      sellerImage: json["sellerImage"] ?? "assets/imgs/default_seller.png",
-      rating: json["rating"] ?? "No Rating",
-      contactInfo: json["contactInfo"] ?? "No Contact Info",
-    );
-  }
+  // factory Seller.fromJson(Map<String, dynamic> json) {
+  //   return Seller(
+  //     sellerId: json["sellerId"] ?? "Unknown",
+  //     sellerName: json["sellerName"] ?? "Unknown Seller",
+  //     sellerImage: json["sellerImage"] ?? "assets/imgs/default_seller.png",
+  //     rating: json["rating"] ?? "No Rating",
+  //     contactInfo: json["contactInfo"] ?? "No Contact Info",
+  //   );
+  // }
 }

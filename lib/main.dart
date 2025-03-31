@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:twindle_app/page/Home.dart';
 import 'package:twindle_app/page/Profile.dart';
-import 'package:twindle_app/page/Profile.dart';
 import 'package:twindle_app/page/login.dart';
 import 'package:twindle_app/page/searchResult.dart';
 import 'package:twindle_app/page/Post.dart';
@@ -18,11 +17,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      home: Login(),
+      routes: {
+        '/home': (context) => MainScreen(),
+      },
+      
       title: 'Flutter Demo',
       theme: ThemeData(
         fontFamily: 'Kanit', // Set the global font
       ),
-      home: MainScreen(),
     );
   }
 }
@@ -35,7 +38,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = [HomePage(), Post()];
+  final List<Widget> _pages = [HomePage(email: '',), Post()];
 
   void _onItemTapped(int index) async {
     if (index == 1) {
@@ -92,3 +95,4 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 }
+

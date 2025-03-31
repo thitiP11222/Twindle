@@ -1,20 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:twindle_app/services/api_service.dart'; // <--- import login function
 
 void main() {
-  runApp(const Login());
+  runApp(Login());
 }
 
-class Login extends StatelessWidget {
-  const Login({super.key});
+class Login extends StatefulWidget {
 
+  Login({super.key});
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  // Controll Login
+  final TextEditingController emailController = TextEditingController();
+
+  final TextEditingController passwordController = TextEditingController();
+  
+  //-------------------------------
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Login',
       home: Scaffold(
-          body: Center(
+          backgroundColor: Color.fromARGB(255, 208, 164, 255),
+          body: SingleChildScrollView(
         child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 80),
           color: Color.fromARGB(255, 208, 164, 255),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -49,6 +66,7 @@ class Login extends StatelessWidget {
                 width: 300, // Set desired width
                 height: 35, // Set desired height
                 child: TextField(
+                  controller: emailController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'E-mail',
@@ -62,6 +80,7 @@ class Login extends StatelessWidget {
                 width: 300,
                 height: 35,
                 child: TextField(
+                  controller: passwordController,
                   obscureText: true,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -77,7 +96,14 @@ class Login extends StatelessWidget {
                   backgroundColor: Colors.black,
                   padding: EdgeInsets.symmetric(horizontal: 130, vertical: 12),
                 ),
-                onPressed: () {},
+                //to Future<void> login()
+                onPressed: (){
+                  login(
+    context: context,
+    email: emailController.text,
+    password: passwordController.text,
+  );
+                },
                 child: Text(
                   "LOGIN",
                   style: TextStyle(color: Colors.white),
@@ -111,3 +137,4 @@ class Login extends StatelessWidget {
     );
   }
 }
+

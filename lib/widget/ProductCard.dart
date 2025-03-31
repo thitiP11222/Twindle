@@ -20,6 +20,7 @@ class ProductCard extends StatelessWidget {
         sellerImage: "assets/imgs/default_seller.png",
         rating: "N/A",
         contactInfo: "No Contact Info",
+        badges: []
       ),
     );
     return GestureDetector(
