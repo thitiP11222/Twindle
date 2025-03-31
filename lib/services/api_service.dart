@@ -2,6 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:twindle_app/page/login.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<List<dynamic>> fetchUsers() async {
   final response = await http.get(Uri.parse('http://localhost:5000/users'));
@@ -41,6 +42,12 @@ Future<void> login({
 
        if (response.statusCode == 200) {
         final fname = responseData["fname"]; // ดึงชื่อผู้ใช้จาก response
+
+        // ✅ บันทึก session ด้วย SharedPreferences
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString("email", email);
+        await prefs.setString("fname", fname);
+
 
         // ✅ ไปหน้า MainScreen พร้อมส่ง email & fname
         Navigator.pushReplacementNamed(context, '/home', arguments: {

@@ -37,6 +37,9 @@ dependencies:
   image_picker: ^1.1.2
   http: ^0.13.6
   
+  #  เก็บค่าหลัง login ด้วย SharedPreferences
+  shared_preferences: ^2.2.2
+  
 
 dev_dependencies:
   flutter_test:
