@@ -1,0 +1,2 @@
+C:/Mobile_Twindle/Twindle-1/android/app/.cxx/Debug/3i645p66/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Mobile_Twindle/Twindle-1/android/app/.cxx/Debug/3i645p66/armeabi-v7a/CMakeFiles/rebuild_cache.dir

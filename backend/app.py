@@ -1,13 +1,15 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import MySQLdb
+# import MySQLdb
+import pymysql
+pymysql.install_as_MySQLdb()
 # สำหรับ version ที่มีการเข้ารหัส ให้ import นี้:
 # from werkzeug.security import check_password_hash
 
 app = Flask(__name__)
 CORS(app)
 
-conn = MySQLdb.connect(
+conn = pymysql.connect(
     host="localhost",
     user="twindle",
     passwd="td3124",
@@ -43,9 +45,9 @@ def login():
 def get_products():
     user_id = request.args.get('user_id')
 
-    cursor = conn.cursor(MySQLdb.cursors.DictCursor)
+    cursor = conn.cursor(pymysql.cursors.DictCursor)
     if user_id:
-        cursor.execute("SELECT * FROM Product WHERE seller_id = %s", (user_id,))
+        cursor.execute("SELECT * FROM Product WHERE user_id = %s", (user_id,))
     else:
         cursor.execute("SELECT * FROM Product")
     products = cursor.fetchall()
