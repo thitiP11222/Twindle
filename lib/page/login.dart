@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:twindle_app/services/api_service.dart'; // <--- import login function
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(Login());
@@ -23,6 +24,27 @@ class _LoginState extends State<Login> {
   
   //-------------------------------
   @override
+//  ตรวจสอบ session ตอนเปิดแอป
+void initState() {
+  super.initState();
+  checkSession();
+}
+
+Future<void> checkSession() async {
+  final prefs = await SharedPreferences.getInstance();
+  final email = prefs.getString("email");
+  final fname = prefs.getString("fname");
+
+  if (email != null && fname != null) {
+    // ไปหน้า Home ทันที
+    Navigator.pushReplacementNamed(context, '/home', arguments: {
+      'email': email,
+      'fname': fname
+    });
+  }
+}
+
+
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,

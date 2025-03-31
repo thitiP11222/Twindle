@@ -3,6 +3,7 @@ import 'package:twindle_app/page/login.dart';
 import 'package:twindle_app/page/searchResult.dart';
 import 'package:twindle_app/widget/ProductCard.dart';
 import 'package:twindle_app/widget/ProductList.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatelessWidget {
   final String email;
@@ -33,18 +34,12 @@ class HomePage extends StatelessWidget {
               ),
               child: ListTile(
                 leading: Image.asset('assets/imgs/td_logo.png'),
-                trailing: IconButton(
-                    onPressed: () {
+                trailing: IconButton(onPressed: () async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear(); // ลบ session
+    Navigator.pushReplacementNamed(context, '/'); // กลับหน้า login
+  }, icon: Icon(Icons.exit_to_app))
 
-                      //Log Out pushReplacement
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => Login()),
-                      );
-                    },
-                    icon: Icon(
-                      Icons.exit_to_app,
-                    )),
               ),
             ),
             Container(
