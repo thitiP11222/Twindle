@@ -1,26 +1,13 @@
 create database Twindle_db;
 use Twindle_db;
-
+-- drop database Twindle_db;
 CREATE USER 'twindle'@'localhost' IDENTIFIED BY 'td3124';
 GRANT SELECT, INSERT, UPDATE ON twindle_db.* TO 'twindle'@'localhost';
 FLUSH PRIVILEGES;
 
-CREATE TABLE Product(
-	product_id INT NOT NULL UNIQUE,
-    product_name VARCHAR(255) NOT NULL ,
-    description_ text null,
-    price DECIMAL(10,2) NOT NULL,
-    stock_quantity 	INT NOT NULL,
-    category_id INT NOT NULL,
-    image_url VARCHAR(500) NOT NULL,
-    user_id VARCHAR(255) NOT NULL UNIQUE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    category_name VARCHAR(255) NOT NULL,
-	PRIMARY KEY (product_id)  
-);
 -- drop table Product;
 CREATE TABLE User(
-	user_id VARCHAR(255) NOT NULL UNIQUE,
+	user_id VARCHAR(255) NOT NULL,
     username text NOT NULL,
     fname text NOT NULL,
     lname text NOT NULL,
@@ -34,16 +21,31 @@ CREATE TABLE User(
     PRIMARY KEY (user_id)  
 );
 
+CREATE TABLE Product(
+	product_id INT NOT NULL AUTO_INCREMENT,
+    product_name VARCHAR(255) NOT NULL ,
+    description_ text null,
+    price DECIMAL(10,2) NOT NULL,
+    stock_quantity 	INT NOT NULL,
+    category_id INT NOT NULL,
+    image_url VARCHAR(500) NOT NULL,
+    user_id VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    category_name VARCHAR(255) NOT NULL,
+	PRIMARY KEY (product_id)  ,
+    FOREIGN KEY (user_id) REFERENCES User(user_id)
+);
+
 CREATE TABLE Reviews(
     review_id VARCHAR(255) NOT NULL UNIQUE,
 	rating REAL NULL,
     review_text text NULL,
     reviewer_name VARCHAR(255) NOT NULL UNIQUE,
-    user_id VARCHAR(255) NOT NULL UNIQUE,
+    user_id VARCHAR(255) NOT NULL ,
     PRIMARY KEY (review_id) ,
     FOREIGN KEY (user_id) REFERENCES User(user_id)
 );
--- drop database Twindle_db;
+
 
 -- Insert Data
 INSERT INTO User (user_id, username, fname, lname, rating, badges, bio, phone, email, passwd, profile_pic)
@@ -66,14 +68,12 @@ VALUES
 ('U004', 'R20', 4.8, 'สินค้าถูกใจมากค่ะคราวน่าจะมาอีก','Bay'),
 ('U005', 'R8', 5.0, 'ตรงปกมากค่ะประทับใจสุดๆ','Robot');
 
-INSERT INTO Product (product_id, product_name, description_, price, stock_quantity, category_id, image_url, user_id, category_name)
+INSERT INTO Product (product_name, description_, price, stock_quantity, category_id, image_url, user_id, category_name)
 VALUES
-(1, 'Vintage Floral Dress', 'เดรสวินเทจลายดอกไม้ หวานๆ สภาพดี', 390.00, 2, 1, 'assets/imgs/product/p2.png',  'U001', 'Vintage'),
+('Vintage Floral Dress', 'เดรสวินเทจลายดอกไม้ หวานๆ สภาพดี', 390.00, 2, 1, 'assets/imgs/product/p2.png',  'U001', 'Vintage'),
+('Minimal Beige Blazer', 'เสื้อเบลเซอร์สีเบจ สไตล์มินิมอล ใส่ทำงานได้', 450.00, 5, 2, 'assets/imgs/product/p1.png', 'U003', 'Minimal'),
+('Brandname Tote Bag', 'กระเป๋าโท้ทแบรนด์เนมแท้ สีดำ สภาพดีมาก', 1200.00, 1, 3, 'assets/imgs/product/p1.png', 'U002', 'Brandname'),
 
-(2, 'Minimal Beige Blazer', 'เสื้อเบลเซอร์สีเบจ สไตล์มินิมอล ใส่ทำงานได้', 450.00, 5, 2, 'assets/imgs/product/p1.png', 'U003', 'Minimal'),
+('Graphic Vintage Tee', 'เสื้อยืดลายวินเทจหายาก ผ้านิ่มมาก', 250.00, 4, 1, 'assets/imgs/product/p2.png', 'U004', 'Vintage'),
 
-(3, 'Brandname Tote Bag', 'กระเป๋าโท้ทแบรนด์เนมแท้ สีดำ สภาพดีมาก', 1200.00, 1, 3, 'assets/imgs/product/p1.png', 'U002', 'Brandname'),
-
-(4, 'Graphic Vintage Tee', 'เสื้อยืดลายวินเทจหายาก ผ้านิ่มมาก', 250.00, 4, 1, 'assets/imgs/product/p2.png', 'U004', 'Vintage'),
-
-(5, 'Soft Pink Cardigan', 'คาร์ดิแกนไหมพรม สีชมพูอ่อน ใส่แล้วน่ารักมาก', 320.00, 3, 2, 'assets/imgs/product/p1.png', 'U005', 'Minimal');
+('Soft Pink Cardigan', 'คาร์ดิแกนไหมพรม สีชมพูอ่อน ใส่แล้วน่ารักมาก', 320.00, 3, 2, 'assets/imgs/product/p1.png', 'U005', 'Minimal');
