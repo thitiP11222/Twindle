@@ -74,6 +74,7 @@ Future<void> login({
     }
   }
 
+<<<<<<< HEAD
 Future<List<dynamic>> fetchProducts() async {
   final response = await http.get(Uri.parse('http://10.0.2.2:5000/products'));
 
@@ -85,4 +86,6 @@ Future<List<dynamic>> fetchProducts() async {
 }
 
 
+=======
+>>>>>>> dd8e32cefac413177af697af038112e62cc03691
 
