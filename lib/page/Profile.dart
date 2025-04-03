@@ -42,16 +42,16 @@ class ProfilePage extends StatelessWidget {
                     CircleAvatar(
                       radius: 40,
                       backgroundImage:
-                          AssetImage(seller.sellerImage), // ใส่รูปจริง
+                          AssetImage(seller.profile_pic), // ใส่รูปจริง
                     ),
                     SizedBox(width: 12),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(seller.sellerName,
+                        Text(seller.username,
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold)),
-                        Text(seller.sellerId,
+                        Text(seller.user_id,
                             style: TextStyle(color: Colors.grey, fontSize: 14)),
                         SizedBox(height: 4),
                         Row(

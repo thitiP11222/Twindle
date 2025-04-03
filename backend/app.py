@@ -60,6 +60,14 @@ def get_products():
     cursor.close()
     return jsonify(products), 200
 
+@app.route('/sellers', methods=['GET'])
+def get_sellers():
+    cursor = conn.cursor(pymysql.cursors.DictCursor)
+    cursor.execute("SELECT * FROM User")  # ชื่อ table อาจต้องตรงกับ DB ของคุณ
+    sellers = cursor.fetchall()
+    cursor.close()
+    return jsonify(sellers), 200
+
 
 @app.route('/add-product', methods=['POST'])
 def add_product():

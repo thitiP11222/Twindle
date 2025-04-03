@@ -39,7 +39,7 @@ class _ChatState extends State<Chat> {
             onPressed: () => Navigator.pop(context),
             icon: Icon(Icons.arrow_back, color: Colors.black),
           ),
-          title: Text(widget.seller.sellerName, style: TextStyle(color: Colors.black)),
+          title: Text(widget.seller.username, style: TextStyle(color: Colors.black)),
         ),
         body: Column(
           children: [
@@ -53,7 +53,7 @@ class _ChatState extends State<Chat> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(widget.seller.sellerName, style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(widget.seller.username, style: TextStyle(fontWeight: FontWeight.bold)),
                         SizedBox(height: 4),
                         Container(
                           padding: EdgeInsets.all(10),
@@ -61,7 +61,7 @@ class _ChatState extends State<Chat> {
                             color: Colors.grey[200],
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: Text("Hello, I am ${widget.seller.sellerName}"),
+                          child: Text("Hello, I am ${widget.seller.username}"),
                         ),
                       ],
                     ),
