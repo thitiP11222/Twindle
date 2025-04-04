@@ -8,6 +8,7 @@ import 'package:twindle_app/page/Post.dart';
 void main() {
   runApp(MyApp());
 }
+String? loggedInUserId;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

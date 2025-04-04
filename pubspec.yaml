@@ -80,6 +80,10 @@ flutter:
     - assets/imgs/brand/price-home/
     - assets/imgs/Twindle Logo.png
     - assets/imgs/td_logo.png
+    - assets/imgs/product/default.jpg
+    - static/uploads/default.jpg
+    - static/uploads/
+    - static/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

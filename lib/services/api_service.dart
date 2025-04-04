@@ -23,7 +23,7 @@ Future<void> login({
   required String email,
   required String password,
 }) async {
-  final url = Uri.parse('http://10.62.69.253:5000/login'); // สำหรับ Emulator
+  final url = Uri.parse('http://10.0.2.2:5000/login'); // สำหรับ Emulator
   try {
     final response = await http.post(
       url,
@@ -38,15 +38,23 @@ Future<void> login({
 
     if (response.statusCode == 200) {
       final fname = responseData["fname"]; // ดึงชื่อผู้ใช้จาก response
+      final userId = responseData["user_id"]; // ✅ ได้มาจาก backend
 
       // ✅ บันทึก session ด้วย SharedPreferences
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString("email", email);
       await prefs.setString("fname", fname);
 
-      // ✅ ไปหน้า MainScreen พร้อมส่ง email & fname
-      Navigator.pushReplacementNamed(context, '/home',
-          arguments: {'email': email, 'fname': fname});
+      await prefs.setString("user_id", userId); // ✅ ต้องมีบรรทัดนี้
+
+      print("✅ Login success | user_id: $userId"); // 🔍 เพิ่ม log ช่วย debug
+
+      // ✅ ไปหน้า MainScreen พร้อมส่ง email, fname, user_id
+      Navigator.pushReplacementNamed(context, '/home', arguments: {
+        'email': email,
+        'fname': fname,
+        'user_id': userId,
+      });
     } else {
       showDialog(
         context: context,
@@ -67,6 +75,7 @@ Future<void> login({
   }
 }
 
+
 Future<List<dynamic>> fetchProducts() async {
   final response =
       await http.get(Uri.parse('http://10.62.69.253:5000/products'));
@@ -77,3 +86,5 @@ Future<List<dynamic>> fetchProducts() async {
     throw Exception('Failed to load products');
   }
 }
+
+
