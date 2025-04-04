@@ -14,10 +14,7 @@ class ProductDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'Kanit'),
-      home: Scaffold(
+    return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           backgroundColor: Colors.transparent, // 👈 ทำให้โปร่งใส
@@ -39,11 +36,19 @@ class ProductDetailPage extends StatelessWidget {
                     bottomLeft: Radius.circular(20),
                     bottomRight: Radius.circular(20),
                   ),
-                  child: Image.asset(
-                    product.imagePath,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
+                  child: product.imagePath.startsWith("http")
+    ? Image.network(
+        product.imagePath,
+        width: double.infinity,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) => Icon(Icons.broken_image),
+      )
+    : Image.asset(
+        product.imagePath,
+        width: double.infinity,
+        fit: BoxFit.cover,
+      ),
+
                 ),
               ),
               Padding(
@@ -313,8 +318,7 @@ class ProductDetailPage extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 
   Row _contactButton(BuildContext context) {

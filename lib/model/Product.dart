@@ -31,67 +31,29 @@ class Product {
   String get safeSRentPrice => sRentprice ?? "N/A";
   String get safeLRentPrice => lRentprice ?? "N/A";
 
-  factory Product.fromJson(Map<String, dynamic> json) {
-    return Product(
-      productId: json["productId"].toString(),
-      imagePath: json["imagePath"] ?? "assets/imgs/default_product.png",
-      productName: json["productName"] ?? "No Name",
-      price: json["price"]?.toString() ?? "0",
-      sRentprice: json["sRentprice"]?.toString(),
-      lRentprice: json["lRentprice"]?.toString(),
-      sellerId: json["sellerId"] ?? "Unknown",
-      description: json["description"] ?? "",
-      category: json["category"] ?? "",
-      qualityStatus: json["qualityStatus"] ?? "",
-      brand: json["brand"],
-    );
-  }
+factory Product.fromJson(Map<String, dynamic> json) {
+  final rawPath = json["image_url"] ?? "static/uploads/default.jpg";
+
+  // ✅ ตรวจว่าเป็น asset หรือไม่ ถ้าไม่ใช่ → ต่อ URL
+  final isAsset = rawPath.startsWith("assets/");
+  final fullImagePath = isAsset
+      ? rawPath
+      : "http://10.0.2.2:5000/$rawPath"; // 👈 ใช้สำหรับ Emulator
+
+  return Product(
+    productId: json["product_id"].toString(),
+    imagePath: fullImagePath, // ✅ ใช้ path ที่พร้อมแสดง
+    productName: json["product_name"] ?? "No Name",
+    price: json["price"]?.toString() ?? "0",
+    sRentprice: json["sRentprice"]?.toString(),
+    lRentprice: json["lRentprice"]?.toString(),
+    sellerId: json["user_id"] ?? "Unknown",
+    description: json["description_"] ?? "",
+    category: json["category_name"] ?? "",
+    qualityStatus: json["qualityStatus"] ?? "",
+    brand: json["brand"],
+  );
 }
 
-// class ProductData {
-//   static final List<Seller> sellers = [
-//     Seller(
-//       sellerId: "S001",
-//       sellerName: "Trendy Store",
-//       sellerImage: "assets/imgs/seller.jpg",
-//       rating: "4.5",
-//       contactInfo: "Contact via Line: @trendystore",
-//       badges: ["trusted", "clean"], // ✅ ใส่ badge
-//     ),
-//     Seller(
-//       sellerId: "S002",
-//       sellerName: "Boho Chic",
-//       sellerImage: "assets/imgs/seller.jpg",
-//       rating: "4.7",
-//       contactInfo: "Contact via Instagram: @bohochic",
-//       badges: ["trusted"],
-//     ),
-//   ];
 
-//   static final List<Product> products = [
-//     Product(
-//       productId: "P001",
-//       imagePath: "assets/imgs/product/p2.png",
-//       productName: "Floral Dress",
-//       price: "\450",
-//       sRentprice: "\100",
-//       lRentprice: "\200",
-//       sellerId: "S001", // 🔗 Connect to Seller
-//       description: "A beautiful floral dress perfect for summer.",
-//       category: "Dresses",
-//       qualityStatus: 'Good',
-//       brand: "Fashion Co.",
-//     ),
-//     Product(
-//       productId: "P002",
-//       imagePath: "assets/imgs/product/p1.png",
-//       productName: "Boho Top",
-//       price: "\300",
-//       sellerId: "S002", // 🔗 Connect to Seller
-//       description: "A stylish boho top made from organic cotton.",
-//       category: "Tops",
-//       qualityStatus: 'มีตำหนิ',
-//       brand: "Bohemian Trends",
-//     ),
-//   ];
-// }
+}

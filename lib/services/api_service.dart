@@ -23,58 +23,59 @@ Future<void> login({
   required BuildContext context,
   required String email,
   required String password,
-
 }) async {
-    
+  final url = Uri.parse('http://10.0.2.2:5000/login'); // สำหรับ Emulator
+  try {
+    final response = await http.post(
+      url,
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({
+        "email": email,
+        "passwd": password,
+      }),
+    );
 
-    final url = Uri.parse('http://10.0.2.2:5000/login'); // สำหรับ Emulator
-    try {
-      final response = await http.post(
-        url,
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode({
-          "email": email,
-          "passwd": password,
-        }),
-      );
+    final responseData = jsonDecode(response.body);
 
-      final responseData = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      final fname = responseData["fname"]; // ดึงชื่อผู้ใช้จาก response
+      final userId = responseData["user_id"]; // ✅ ได้มาจาก backend
 
-       if (response.statusCode == 200) {
-        final fname = responseData["fname"]; // ดึงชื่อผู้ใช้จาก response
+      // ✅ บันทึก session ด้วย SharedPreferences
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString("email", email);
+      await prefs.setString("fname", fname);
+      await prefs.setString("user_id", userId); // ✅ ต้องมีบรรทัดนี้
 
-        // ✅ บันทึก session ด้วย SharedPreferences
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString("email", email);
-        await prefs.setString("fname", fname);
+      print("✅ Login success | user_id: $userId"); // 🔍 เพิ่ม log ช่วย debug
 
-
-        // ✅ ไปหน้า MainScreen พร้อมส่ง email & fname
-        Navigator.pushReplacementNamed(context, '/home', arguments: {
-          'email': email,
-          'fname': fname
-        });
-      } else {
-        showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-            title: const Text("Error"),
-            content: Text(responseData["message"]),
-          ),
-        );
-      }
-    } catch (e) {
+      // ✅ ไปหน้า MainScreen พร้อมส่ง email, fname, user_id
+      Navigator.pushReplacementNamed(context, '/home', arguments: {
+        'email': email,
+        'fname': fname,
+        'user_id': userId,
+      });
+    } else {
       showDialog(
         context: context,
         builder: (_) => AlertDialog(
           title: const Text("Error"),
-          content: Text("Could not connect to server"),
+          content: Text(responseData["message"]),
         ),
       );
     }
+  } catch (e) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text("Error"),
+        content: Text("Could not connect to server"),
+      ),
+    );
   }
+}
 
-<<<<<<< HEAD
+
 Future<List<dynamic>> fetchProducts() async {
   final response = await http.get(Uri.parse('http://10.0.2.2:5000/products'));
 
@@ -85,7 +86,4 @@ Future<List<dynamic>> fetchProducts() async {
   }
 }
 
-
-=======
->>>>>>> dd8e32cefac413177af697af038112e62cc03691
 

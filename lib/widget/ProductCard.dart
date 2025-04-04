@@ -17,7 +17,7 @@ class ProductCard extends StatelessWidget {
       orElse: () => Seller(
         user_id: "default",
         username: "Unknown Seller",
-        profile_pic: "assets/imgs/default_seller.png",
+        profile_pic: "static/uploads/default.jpg",
         rating: "0",
         bio: "-",
         badges: [],
@@ -29,8 +29,10 @@ class ProductCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                ProductDetailPage(product: product, seller: seller),
+            builder: (context) => ProductDetailPage(
+              product: product,
+              seller: seller,
+            ),
           ),
         );
       },

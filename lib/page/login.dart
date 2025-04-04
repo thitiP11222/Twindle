@@ -34,14 +34,17 @@ Future<void> checkSession() async {
   final prefs = await SharedPreferences.getInstance();
   final email = prefs.getString("email");
   final fname = prefs.getString("fname");
+  final userId = prefs.getString("user_id"); // ✅ เพิ่มบรรทัดนี้
 
-  if (email != null && fname != null) {
-    // ไปหน้า Home ทันที
-    Navigator.pushReplacementNamed(context, '/home', arguments: {
-      'email': email,
-      'fname': fname
-    });
-  }
+  
+  
+  if (email != null && fname != null && userId != null) {
+  Navigator.pushReplacementNamed(context, '/home', arguments: {
+    'email': email,
+    'fname': fname,
+    'user_id': userId, // ✅ ส่งไปด้วย
+  });
+}
 }
 
 
@@ -49,6 +52,9 @@ Future<void> checkSession() async {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Login',
+      theme: ThemeData(
+        fontFamily: 'Kanit'
+      ),
       home: Scaffold(
           backgroundColor: Color.fromARGB(255, 208, 164, 255),
           body: SingleChildScrollView(

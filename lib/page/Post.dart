@@ -5,6 +5,7 @@ import 'package:twindle_app/page/Post%20Success.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:twindle_app/page/home.dart';
 
@@ -13,7 +14,9 @@ void main() {
 }
 
 class Post extends StatefulWidget {
+  
   const Post({super.key});
+  
 
   @override
   _PostState createState() => _PostState();
@@ -21,6 +24,22 @@ class Post extends StatefulWidget {
 
 class _PostState extends State<Post> {
   File? _image;
+  String? userId;
+
+@override
+void initState() {
+  super.initState();
+  loadUserId();
+}
+
+Future<void> loadUserId() async {
+  final prefs = await SharedPreferences.getInstance();
+  final loadedId = prefs.getString('user_id');
+  setState(() {
+    userId = loadedId;
+  });
+  print("✅ Loaded user_id: $userId");
+}
 
   final nameController = TextEditingController();
   final brandController = TextEditingController();
@@ -32,40 +51,71 @@ class _PostState extends State<Post> {
   final rent5Controller = TextEditingController();
 
   Future<void> _pickImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      setState(() {
-        _image = File(pickedFile.path);
-      });
-    }
+    final pickedFile = await ImagePicker().pickImage(
+  source: ImageSource.gallery,
+  preferredCameraDevice: CameraDevice.rear,
+  imageQuality: 85, // บีบอัดภาพ
+);
+
+if (pickedFile != null) {
+  final ext = pickedFile.path.split('.').last.toLowerCase();
+  if (ext != 'jpg' && ext != 'jpeg' && ext != 'png') {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text("กรุณาเลือกไฟล์ .jpg หรือ .png เท่านั้น"),
+    ));
+    return;
+  }
+
+  setState(() {
+    _image = File(pickedFile.path);
+  });
+}
   }
 
   Future<void> submitProduct() async {
-    final url = Uri.parse('http://10.0.2.2:5000/add-product'); // เปลี่ยนตาม IP จริงหากรันบนมือถือจริง
+  final uri = Uri.parse('http://10.0.2.2:5000/add-product');
+  final request = http.MultipartRequest('POST', uri);
 
-    final response = await http.post(
-      url,
-      headers: {"Content-Type": "application/json"},
-      body: jsonEncode({
-        "product_name": nameController.text,
-        "description_": descriptionController.text,
-        "price": double.tryParse(priceController.text) ?? 0.0,
-        "stock_quantity": 1,
-        "category_id": 1,
-        "category_name": categoryController.text,
-        "user_id": "U005"  // ปรับตาม user ที่ login จริง
-      }),
-    );
+  // ✅ Fields ที่ backend ต้องการ
+  request.fields['product_name'] = nameController.text;
+  request.fields['description'] = descriptionController.text;
+  request.fields['price'] = priceController.text;
+  request.fields['stock_quantity'] = '1';
+  request.fields['category_id'] = '1';
+  request.fields['category_name'] = categoryController.text;
+  request.fields['user_id'] = userId ?? '';
+print("✅ Submitting with user_id: $userId");
+  final prefs = await SharedPreferences.getInstance();
+print("📦 Shared user_id: ${prefs.getString('user_id')}");
+
+
+
+
+
+  // ✅ Image file
+  if (_image != null) {
+    final imageFile = await http.MultipartFile.fromPath('image', _image!.path);
+    request.files.add(imageFile);
+  }
+
+  try {
+    final streamedResponse = await request.send();
+    final response = await http.Response.fromStream(streamedResponse);
 
     if (response.statusCode == 200) {
+      print("✅ Upload Success: ${response.body}");
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => Postsuccess()),
       );
     } else {
-      print("Error: ${jsonDecode(response.body)['error']}");
+      print("❌ Upload Failed: ${response.statusCode} - ${response.body}");
     }
+  } catch (e) {
+    print("❌ Upload error: $e");
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
