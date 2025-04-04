@@ -31,21 +31,58 @@ class Product {
   String get safeSRentPrice => sRentprice ?? "N/A";
   String get safeLRentPrice => lRentprice ?? "N/A";
 
-  factory Product.fromJson(Map<String, dynamic> json) {
-    return Product(
-      productId: json["productId"].toString(),
-      imagePath: json["imagePath"] ?? "assets/imgs/default_product.png",
-      productName: json["productName"] ?? "No Name",
-      price: json["price"]?.toString() ?? "0",
-      sRentprice: json["sRentprice"]?.toString(),
-      lRentprice: json["lRentprice"]?.toString(),
-      sellerId: json["sellerId"] ?? "Unknown",
-      description: json["description"] ?? "",
-      category: json["category"] ?? "",
-      qualityStatus: json["qualityStatus"] ?? "",
-      brand: json["brand"],
-    );
-  }
+  // factory Product.fromJson(Map<String, dynamic> json) {
+  //   return Product(
+  //     // productId: json["productId"].toString(),
+  //     productId: json["product_id"].toString(),
+  //     imagePath: json["imagePath"] ?? "assets/imgs/default_product.png",
+  //     productName: json["productName"] ?? "No Name",
+  //     price: json["price"]?.toString() ?? "0",
+  //     sRentprice: json["sRentprice"]?.toString(),
+  //     lRentprice: json["lRentprice"]?.toString(),
+  //     sellerId: json["sellerId"] ?? "Unknown",
+  //     description: json["description"] ?? "",
+  //     category: json["category"] ?? "",
+  //     qualityStatus: json["qualityStatus"] ?? "",
+  //     brand: json["brand"],
+  //   );
+  // }
+
+  // factory Product.fromJson(Map<String, dynamic> json) {
+  //   return Product(
+  //     productId: json["product_id"].toString(),
+  //     productName: json["product_name"] ?? "No Name",
+  //     imagePath: json["image_url"] ?? "assets/imgs/default_product.png",
+  //     price: json["price"]?.toString() ?? "0",
+  //     sRentprice: null, // ยังไม่มีใน JSON
+  //     lRentprice: null,
+  //     sellerId: json["user_id"] ?? "Unknown",
+  //     description: json["description_"] ?? "",
+  //     category: json["category_name"] ?? "",
+  //     qualityStatus: "-", // ยังไม่มีใน JSON
+  //     brand: "-", // ยังไม่มีใน JSON
+  //   );
+  // }
+
+factory Product.fromJson(Map<String, dynamic> json) {
+  return Product(
+    productId: json["product_id"].toString(),
+    productName: json["product_name"] ?? "No Name",
+    imagePath: json["image_url"] ?? "assets/imgs/default_product.png",
+    price: json["price"]?.toString() ?? "0",
+    sRentprice: null, // ยังไม่ใช้
+    lRentprice: null,
+    sellerId: json["user_id"] ?? "Unknown",
+    description: json["description_"] ?? "", // ✅ ตรงนี้สำคัญ!!
+    category: json["category_name"] ?? "",
+    qualityStatus: "-",
+    brand: "-",
+  );
+}
+
+
+
+
 }
 
 // class ProductData {

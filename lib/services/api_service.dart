@@ -13,7 +13,6 @@ Future<List<dynamic>> fetchUsers() async {
   }
 }
 
-
 // Call API Login
 // ฟังก์ชัน login สำหรับส่งอีเมลและรหัสผ่านไปยังเซิร์ฟเวอร์
 // ถ้า login สำเร็จ จะพาไปหน้า home พร้อมส่งอีเมลไปด้วย
@@ -23,60 +22,54 @@ Future<void> login({
   required BuildContext context,
   required String email,
   required String password,
-
 }) async {
-    
+  final url = Uri.parse('http://10.62.69.253:5000/login'); // สำหรับ Emulator
+  try {
+    final response = await http.post(
+      url,
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({
+        "email": email,
+        "passwd": password,
+      }),
+    );
 
-    final url = Uri.parse('http://10.0.2.2:5000/login'); // สำหรับ Emulator
-    try {
-      final response = await http.post(
-        url,
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode({
-          "email": email,
-          "passwd": password,
-        }),
-      );
+    final responseData = jsonDecode(response.body);
 
-      final responseData = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      final fname = responseData["fname"]; // ดึงชื่อผู้ใช้จาก response
 
-       if (response.statusCode == 200) {
-        final fname = responseData["fname"]; // ดึงชื่อผู้ใช้จาก response
+      // ✅ บันทึก session ด้วย SharedPreferences
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString("email", email);
+      await prefs.setString("fname", fname);
 
-        // ✅ บันทึก session ด้วย SharedPreferences
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString("email", email);
-        await prefs.setString("fname", fname);
-
-
-        // ✅ ไปหน้า MainScreen พร้อมส่ง email & fname
-        Navigator.pushReplacementNamed(context, '/home', arguments: {
-          'email': email,
-          'fname': fname
-        });
-      } else {
-        showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-            title: const Text("Error"),
-            content: Text(responseData["message"]),
-          ),
-        );
-      }
-    } catch (e) {
+      // ✅ ไปหน้า MainScreen พร้อมส่ง email & fname
+      Navigator.pushReplacementNamed(context, '/home',
+          arguments: {'email': email, 'fname': fname});
+    } else {
       showDialog(
         context: context,
         builder: (_) => AlertDialog(
           title: const Text("Error"),
-          content: Text("Could not connect to server"),
+          content: Text(responseData["message"]),
         ),
       );
     }
+  } catch (e) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text("Error"),
+        content: Text("Could not connect to server"),
+      ),
+    );
   }
+}
 
-<<<<<<< HEAD
 Future<List<dynamic>> fetchProducts() async {
-  final response = await http.get(Uri.parse('http://10.0.2.2:5000/products'));
+  final response =
+      await http.get(Uri.parse('http://10.62.69.253:5000/products'));
 
   if (response.statusCode == 200) {
     return json.decode(response.body); // แปลงเป็น List<Map>
@@ -84,8 +77,3 @@ Future<List<dynamic>> fetchProducts() async {
     throw Exception('Failed to load products');
   }
 }
-
-
-=======
->>>>>>> dd8e32cefac413177af697af038112e62cc03691
-
