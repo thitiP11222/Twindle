@@ -13,7 +13,6 @@ Future<List<dynamic>> fetchUsers() async {
   }
 }
 
-
 // Call API Login
 // ฟังก์ชัน login สำหรับส่งอีเมลและรหัสผ่านไปยังเซิร์ฟเวอร์
 // ถ้า login สำเร็จ จะพาไปหน้า home พร้อมส่งอีเมลไปด้วย
@@ -45,6 +44,7 @@ Future<void> login({
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString("email", email);
       await prefs.setString("fname", fname);
+
       await prefs.setString("user_id", userId); // ✅ ต้องมีบรรทัดนี้
 
       print("✅ Login success | user_id: $userId"); // 🔍 เพิ่ม log ช่วย debug
@@ -77,7 +77,8 @@ Future<void> login({
 
 
 Future<List<dynamic>> fetchProducts() async {
-  final response = await http.get(Uri.parse('http://10.0.2.2:5000/products'));
+  final response =
+      await http.get(Uri.parse('http://10.62.69.253:5000/products'));
 
   if (response.statusCode == 200) {
     return json.decode(response.body); // แปลงเป็น List<Map>

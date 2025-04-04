@@ -169,7 +169,7 @@ class HomePage extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => SearchResult(
-                                  keyword: '',
+                                  keyword:"",
                                 )), // Replace with your page
                       );
                     },
