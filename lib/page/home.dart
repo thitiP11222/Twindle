@@ -137,7 +137,7 @@ class HomePage extends StatelessWidget {
   Container shopByPrice_banner(BuildContext context) {
     return Container(
       alignment: Alignment.centerLeft,
-      padding: EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
+      padding: EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 20),
       color: Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start, // Ensures left alignment
