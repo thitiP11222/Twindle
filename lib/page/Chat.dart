@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:twindle_app/model/Product.dart';
 import 'package:twindle_app/model/Seller.dart';
+import 'package:twindle_app/page/Eco%20impact.dart';
 
 class Chat extends StatefulWidget {
   final Product? product;
   final Seller seller;
 
-  const Chat({Key? key,this.product, required this.seller})
-      : super(key: key);
+  const Chat({Key? key, this.product, required this.seller}) : super(key: key);
 
   @override
   State<Chat> createState() => _ChatState();
-
 }
 
 class _ChatState extends State<Chat> {
@@ -39,7 +38,8 @@ class _ChatState extends State<Chat> {
             onPressed: () => Navigator.pop(context),
             icon: Icon(Icons.arrow_back, color: Colors.black),
           ),
-          title: Text(widget.seller.username, style: TextStyle(color: Colors.black)),
+          title: Text(widget.seller.username,
+              style: TextStyle(color: Colors.black)),
         ),
         body: Column(
           children: [
@@ -53,7 +53,8 @@ class _ChatState extends State<Chat> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(widget.seller.username, style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(widget.seller.username,
+                            style: TextStyle(fontWeight: FontWeight.bold)),
                         SizedBox(height: 4),
                         Container(
                           padding: EdgeInsets.all(10),
@@ -85,8 +86,7 @@ class _ChatState extends State<Chat> {
                 ],
               ),
             ),
-            if (widget.product != null)
-            _offerBox(),
+            if (widget.product != null) _offerBox(),
             _chatInputField(),
           ],
         ),
@@ -111,8 +111,8 @@ class _ChatState extends State<Chat> {
                 borderRadius: BorderRadius.circular(10),
                 child: Image.asset(
                   widget.product!.imagePath,
-                  width: 120,
-                  height: 150,
+                  width: 100,
+                  height: 130,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -122,42 +122,69 @@ class _ChatState extends State<Chat> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(widget.product!.productName,
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
                     SizedBox(height: 5),
-                    Text("ราคาขาย: 950 ฿", style: TextStyle(fontSize: 16)),
-                    Text("ราคาเช่า: 3 วัน / 370 ฿", style: TextStyle(fontSize: 16)),
+                    Text("ราคาขาย: ${widget.product!.price} ฿",
+                        style: TextStyle(fontSize: 16)),
+                    Text("ราคาเช่า: 3 วัน / ${widget.product!.sRentprice} ฿",
+                        style: TextStyle(fontSize: 16)),
                     SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ElevatedButton(
-                          onPressed: () => _sendMessage("ฉันต้องการเช่า/จองค่ะ"),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.purple,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10),
-                            child: Text("เช่า/จอง",
-                                style: TextStyle(fontSize: 16, color: Colors.white)),
-                          ),
-                        ),
+  onPressed: () {
+    _sendMessage("ฉันต้องการเช่า/จองค่ะ");
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => EcoImpact()),
+    );
+    Future.delayed(Duration(seconds: 3), () {
+      Navigator.pop(context);
+    });
+  },
+  style: ElevatedButton.styleFrom(
+    backgroundColor: Colors.purple,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10),
+    ),
+  ),
+  child: Padding(
+    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+    child: Text(
+      "เช่า/จอง",
+      style: TextStyle(fontSize: 14, color: Colors.white),
+    ),
+  ),
+),
+
                         ElevatedButton(
-                          onPressed: () => _sendMessage("ฉันต้องการซื้อสินค้านี้ค่ะ"),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10),
-                            child: Text("ซื้อสินค้า",
-                                style: TextStyle(fontSize: 16, color: Colors.white)),
-                          ),
-                        ),
+  onPressed: () {
+    _sendMessage("ฉันต้องการซื้อสินค้านี้ค่ะ");
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => EcoImpact()),
+    );
+    Future.delayed(Duration(seconds: 3), () {
+      Navigator.pop(context);
+    });
+  },
+  style: ElevatedButton.styleFrom(
+    backgroundColor: Colors.black,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10),
+    ),
+  ),
+  child: Padding(
+    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+    child: Text(
+      "ซื้อสินค้า",
+      style: TextStyle(fontSize: 14, color: Colors.white),
+    ),
+  ),
+),
+
                       ],
                     ),
                   ],
@@ -188,7 +215,8 @@ class _ChatState extends State<Chat> {
                 decoration: InputDecoration(
                   hintText: "เริ่มต้นบทสนทนา . . .",
                   border: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                   hintStyle: TextStyle(fontSize: 14),
                 ),
               ),

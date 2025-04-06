@@ -1,9 +1,12 @@
 import 'package:http/http.dart' as http;
+import 'package:twindle_app/config.dart';
 import 'dart:convert';
 import 'package:twindle_app/page/login.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:twindle_app/config.dart';
+import 'package:twindle_app/model/Product.dart';
+import 'package:twindle_app/model/Seller.dart';
 Future<List<dynamic>> fetchUsers() async {
   final response = await http.get(Uri.parse('http://localhost:5000/users'));
   if (response.statusCode == 200) {
@@ -78,7 +81,7 @@ Future<void> login({
 
 Future<List<dynamic>> fetchProducts() async {
   final response =
-      await http.get(Uri.parse('http://10.62.69.253:5000/products'));
+      await http.get(Uri.parse('$baseUrl/products'));
 
   if (response.statusCode == 200) {
     return json.decode(response.body); // แปลงเป็น List<Map>
@@ -88,3 +91,33 @@ Future<List<dynamic>> fetchProducts() async {
 }
 
 
+
+Future<Map<String, dynamic>> fetchProductAndSellerData() async {
+  try {
+    final productRes = await http.get(Uri.parse('$baseUrl/products'));
+    final sellerRes = await http.get(Uri.parse('$baseUrl/sellers'));
+
+    if (productRes.statusCode == 200 && sellerRes.statusCode == 200) {
+      final List<Product> products = (json.decode(productRes.body) as List)
+          .map((p) => Product.fromJson(p))
+          .toList();
+
+      final List<Seller> sellers = (json.decode(sellerRes.body) as List)
+          .map((s) => Seller.fromJson(s))
+          .toList();
+
+      return {
+        'products': products,
+        'sellers': sellers,
+      };
+    } else {
+      throw Exception("Failed to load product or seller data");
+    }
+  } catch (e) {
+    print("❌ fetchProductAndSellerData error: $e");
+    return {
+      'products': [],
+      'sellers': [],
+    };
+  }
+}

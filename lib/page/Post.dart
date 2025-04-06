@@ -80,8 +80,9 @@ if (pickedFile != null) {
   request.fields['product_name'] = nameController.text;
   request.fields['description'] = descriptionController.text;
   request.fields['price'] = priceController.text;
-  request.fields['stock_quantity'] = '1';
+  request.fields['qualityStatus'] = conditionController.text ?? 'ไม่ระบุ' ;
   request.fields['category_id'] = '1';
+  request.fields['brand'] = brandController.text ?? 'ไม่ระบุ';
   request.fields['category_name'] = categoryController.text;
   request.fields['user_id'] = userId ?? '';
 print("✅ Submitting with user_id: $userId");

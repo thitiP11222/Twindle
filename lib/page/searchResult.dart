@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:twindle_app/config.dart';
 import 'package:twindle_app/model/Product.dart';
 import 'package:twindle_app/model/Seller.dart';
+import 'package:twindle_app/services/api_service.dart';
 import 'package:twindle_app/widget/ProductCard.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+
 
 class SearchResult extends StatefulWidget {
   final String keyword;
@@ -17,7 +19,7 @@ class SearchResult extends StatefulWidget {
 
 class _SearchResultState extends State<SearchResult> {
   List<Product> products = [];
-  List<Seller> sellers = [];
+  List<Seller> _sellers = [];
   bool isLoading = true;
 
   @override
@@ -26,82 +28,19 @@ class _SearchResultState extends State<SearchResult> {
     fetchData();
   }
 
-  // Future<void> fetchData() async {
-  //   try {
-  //     print("🔍 เริ่มดึงข้อมูลจาก API");
-
-  //     final productRes =
-  //         await http.get(Uri.parse('http://10.62.69.253:5000/products'));
-  //     print("📦 ผลลัพธ์ products: ${productRes.statusCode}");
-
-  //     final sellerRes =
-  //         await http.get(Uri.parse('http://10.62.69.253:5000/sellers'));
-  //     print("👤 ผลลัพธ์ sellers: ${sellerRes.statusCode}");
-
-  //     if (productRes.statusCode == 200) {
-  //       final List<dynamic> productJson = json.decode(productRes.body);
-  //       final List<Product> fetchedProducts =
-  //           productJson.map((p) => Product.fromJson(p)).toList();
-  //       print("✅ โหลดสินค้า ${fetchedProducts.length} ชิ้น");
-
-  //       final List<Seller> fetchedSellers = sellerRes.statusCode == 200
-  //           ? (json.decode(sellerRes.body) as List)
-  //               .map((s) => Seller.fromJson(s))
-  //               .toList()
-  //           : [
-  //               Seller(
-  //                 user_id: "default",
-  //                 username: "Unknown Seller",
-  //                 profile_pic: "assets/imgs/default_seller.png",
-  //                 rating: "0",
-  //                 bio: "-",
-  //                 badges: [],
-  //               )
-  //             ];
-
-  //       setState(() {
-  //         products = fetchedProducts;
-  //         sellers = fetchedSellers;
-  //         isLoading = false;
-  //       });
-  //     } else {
-  //       print("❌ โหลดไม่สำเร็จ: ${productRes.statusCode}");
-  //       setState(() => isLoading = false);
-  //     }
-  //   } catch (e) {
-  //     print("❌ Exception: $e");
-  //     setState(() => isLoading = false);
-  //   }
-  // }
-
-Future<void> fetchData() async {
-  try {
-    final productRes = await http.get(Uri.parse('$baseUrl/products'));
-    final sellerRes = await http.get(Uri.parse('$baseUrl/sellers'));
-
-    if (productRes.statusCode == 200 && sellerRes.statusCode == 200) {
-      final List<dynamic> productJson = json.decode(productRes.body);
-      final List<dynamic> sellerJson = json.decode(sellerRes.body);
-
-      setState(() {
-        products = productJson.map((p) => Product.fromJson(p)).toList();
-        sellers = sellerJson.map((s) => Seller.fromJson(s)).toList();
-        isLoading = false;
-      });
-    } else {
-      setState(() => isLoading = false);
-    }
-  } catch (e) {
-    setState(() => isLoading = false);
-  }
+  void fetchData() async {
+    final result = await fetchProductAndSellerData();
+    setState(() {
+      products = result['products'];
+      _sellers = result['sellers'];
+      isLoading = false;
+    });
 }
+
 
   @override
   Widget build(BuildContext context) {
-    // final filtered = products
-    //     .where((p) =>
-    //         p.productName.toLowerCase().contains(widget.keyword.toLowerCase()))
-    //     .toList();
+
         
 final filtered = isLoading
     ? []  // ยังไม่โหลดข้อมูล
@@ -142,6 +81,7 @@ final filtered = isLoading
                 ),
                 // ✅ แสดงผล
                 Container(
+                  margin: EdgeInsets.only(bottom: 20),
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: filtered.isNotEmpty
                       ? GridView.builder(
@@ -157,7 +97,7 @@ final filtered = isLoading
                           itemCount: filtered.length,
                           itemBuilder: (context, index) => ProductCard(
                             product: filtered[index],
-                            sellers: sellers,
+                            sellers: _sellers,
                           ),
                         )
                       : Padding(
