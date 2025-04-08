@@ -26,10 +26,7 @@ class WatchListPage extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Color(0xFFF1E4FF),
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.favorite, color: Colors.red),
-          onPressed: () => Navigator.pop(context),
-        ),
+        leading: Icon(Icons.favorite, color: Colors.red),
       ),
       body: favorites.isEmpty
           ? Center(
@@ -52,13 +49,13 @@ class WatchListPage extends StatelessWidget {
                         ? Image.network(
                             product.imagePath,
                             width: 75,
-                            height: 65,
+                            height: 80,
                             fit: BoxFit.cover,
                           )
                         : Image.asset(
                             product.imagePath,
                             width: 75,
-                            height: 65,
+                            height: 80,
                             fit: BoxFit.cover,
                           ),
                   ),
