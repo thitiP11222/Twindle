@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:twindle_app/page/Account.dart';
 import 'package:twindle_app/page/Home.dart';
 import 'package:twindle_app/page/Profile.dart';
+import 'package:twindle_app/page/Watch%20list.dart';
 import 'package:twindle_app/page/login.dart';
 import 'package:twindle_app/page/searchResult.dart';
 import 'package:twindle_app/page/Post.dart';
@@ -41,7 +42,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = [HomePage(email: '',), Post(),HomePage(email: '',),Account()];
+  final List<Widget> _pages = [HomePage(email: '',), Post(),WatchListPage(),Account()];
 
   void _onItemTapped(int index) async {
     if (index == 1) {
