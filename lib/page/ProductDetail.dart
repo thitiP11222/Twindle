@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:twindle_app/model/Product.dart';
 import 'package:twindle_app/model/Seller.dart';
 import 'package:twindle_app/page/Chat.dart';
+import 'package:twindle_app/page/Favorites%20Manager.dart';
 import 'package:twindle_app/page/Profile.dart';
 import 'package:twindle_app/page/condition.dart';
 
@@ -353,17 +354,45 @@ class ProductDetailPage extends StatelessWidget {
           ),
         ),
         SizedBox(width: 10),
-        Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Color(0xFFE0FBF3), // Light greenish color
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: Icon(
-            Icons.favorite_border, // Heart icon
-            color: Colors.green,
-            size: 28,
-          ),
+        // Container(
+        //   padding: EdgeInsets.all(10),
+        //   decoration: BoxDecoration(
+        //     color: Color(0xFFE0FBF3), // Light greenish color
+        //     borderRadius: BorderRadius.circular(15),
+        //   ),
+        //   child: Icon(
+        //     Icons.favorite_border, // Heart icon
+        //     color: Colors.green,
+        //     size: 28,
+        //   ),
+        // ),
+        StatefulBuilder(
+          builder: (context, setState) {
+            bool isFavorited = FavoriteManager().isFavorite(product);
+            return GestureDetector(
+              onTap: () {
+                setState(() {
+                  if (isFavorited) {
+                    FavoriteManager().removeFavorite(product);
+                  } else {
+                    FavoriteManager().addFavorite(product, seller);
+                  }
+                });
+              },
+              child: Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Color(0xFFFFE5EC),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Icon(
+                  isFavorited ? Icons.favorite : Icons.favorite_border,
+                  color: Colors.red,
+                  size: 28,
+                ),
+              ),
+            );
+          },
         ),
       ],
     );
