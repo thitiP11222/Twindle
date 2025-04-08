@@ -57,7 +57,7 @@ Future<void> login({
   
 
   // ✅ Go to /account page
-      Navigator.pushReplacementNamed(context, '/account', arguments: {
+      Navigator.pushReplacementNamed(context, '/home', arguments: {
         'email': email,
         'fname': fname,
         'lname': lname,

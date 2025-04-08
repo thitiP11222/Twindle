@@ -35,18 +35,18 @@ Future<void> checkSession() async {
   final email = prefs.getString("email");
   final fname = prefs.getString("fname");
   final lname = prefs.getString("lname");
-  final userId = prefs.getString("user_id"); 
+  final user_id = prefs.getString("user_id"); 
   final profile_pic = prefs.getString("profile_pic"); 
 
 
 
   
   
-  if (email != null && fname != null && userId != null) {
+  if (email != null && fname != null && user_id != null) {
   Navigator.pushReplacementNamed(context, '/home', arguments: {
     'email': email,
     'fname': fname,
-    'user_id': userId,
+    'user_id': user_id,
     'lname': lname,
     'profile_pic' : profile_pic
   });

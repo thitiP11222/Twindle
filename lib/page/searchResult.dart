@@ -29,17 +29,21 @@ class _SearchResultState extends State<SearchResult> {
   }
 
   void fetchData() async {
-    final result = await fetchProductAndSellerData();
-    setState(() {
-      products = result['products'];
-      _sellers = result['sellers'];
-      isLoading = false;
-    });
+  final result = await fetchProductAndSellerData();
+  print("✅ Products: ${result['products'].length}, Sellers: ${result['sellers'].length}");
+  setState(() {
+    products = result['products'];
+    _sellers = result['sellers'];
+    isLoading = false;
+  });
+
 }
 
 
   @override
   Widget build(BuildContext context) {
+    // 🔥 Trigger rebuild เพื่อดึงข้อมูลล่าสุด
+    Future.microtask(() => (context as Element).markNeedsBuild());
 
         
 final filtered = isLoading

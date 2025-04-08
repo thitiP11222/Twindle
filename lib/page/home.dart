@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
+    Future.microtask(() => (context as Element).markNeedsBuild());
     // ดึง arguments ที่ส่งมาจาก login()
     final args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;

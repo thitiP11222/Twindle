@@ -112,13 +112,19 @@ def get_sellers():
     sellers = cursor.fetchall()
     cursor.close()
     return jsonify(sellers), 200
+
 @app.route('/seller_products/<user_id>', methods=['GET'])
 def get_seller_products(user_id):
-    cursor = conn.cursor(pymysql.cursors.DictCursor)
-    cursor.execute("SELECT * FROM Product WHERE user_id = %s", (user_id,))
-    products = cursor.fetchall()
-    cursor.close()
-    return jsonify(products), 200
+    try:
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+        cursor.execute("SELECT * FROM Product WHERE user_id = %s", (user_id,))
+        products = cursor.fetchall()
+        print("📦 Seller Products:", products)  # 🔍 Debug line
+        cursor.close()
+        return jsonify(products), 200
+    except Exception as e:
+        print("❌ Error in /seller_products:", str(e))  # 🛑 แสดง Error จริง
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/add-product', methods=['POST'])
 def upload_product():
