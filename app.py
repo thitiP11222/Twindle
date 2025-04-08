@@ -46,26 +46,35 @@ def login():
     password = data.get('passwd')
 
     cursor = conn.cursor()
-    cursor.execute("SELECT user_id, passwd, fname FROM User WHERE email = %s", (email,))
-
+    cursor.execute("SELECT user_id, passwd, fname, lname, email, profile_pic FROM User WHERE email = %s", (email,))
     result = cursor.fetchone()
     cursor.close()
 
-    if result:
-        user_id = result[0]
-        stored_password = result[1]
-        fname = result[2]
-
-        if password == stored_password:
-            return jsonify({
-                'message': 'Login successful',
-                'fname': fname,
-                'user_id': user_id
-            }), 200
-        else:
-            return jsonify({"message": "Incorrect password"}), 401
-    else:
+    if result is None:
         return jsonify({"message": "User not found"}), 404
+
+    user_id = result['user_id']
+    stored_password = result['passwd']
+    fname = result['fname']
+    lname = result['lname']
+    email = result['email']
+    profile_pic  = result['profile_pic']
+
+    print(">>> Input password:", repr(password))
+    print(">>> Stored password:", repr(stored_password))
+    print(">>> lname from DB:", lname)
+    if password == stored_password:
+        return jsonify({
+            'message': 'Login successful',
+            'fname': fname,
+            'lname': lname,
+            'user_id': user_id,
+            'profile_pic':profile_pic
+        }), 200
+    else:
+        return jsonify({"message": "Incorrect password"}), 401
+    
+
 
 
 @app.route('/products', methods=['GET'])

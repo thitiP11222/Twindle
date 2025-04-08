@@ -84,6 +84,7 @@ flutter:
     - assets/imgs/profile/
     - assets/imgs/brand/price-home/
     - assets/imgs/Twindle Logo.png
+    - assets/imgs/profile/setting.jpg
     - assets/imgs/td_logo.png
     - assets/imgs/product/default.jpg
     - static/uploads/default.jpg

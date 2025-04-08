@@ -34,7 +34,11 @@ Future<void> checkSession() async {
   final prefs = await SharedPreferences.getInstance();
   final email = prefs.getString("email");
   final fname = prefs.getString("fname");
-  final userId = prefs.getString("user_id"); // ✅ เพิ่มบรรทัดนี้
+  final lname = prefs.getString("lname");
+  final userId = prefs.getString("user_id"); 
+  final profile_pic = prefs.getString("profile_pic"); 
+
+
 
   
   
@@ -42,8 +46,13 @@ Future<void> checkSession() async {
   Navigator.pushReplacementNamed(context, '/home', arguments: {
     'email': email,
     'fname': fname,
-    'user_id': userId, // ✅ ส่งไปด้วย
+    'user_id': userId,
+    'lname': lname,
+    'profile_pic' : profile_pic
   });
+  print('>>> fname: $fname, lname: $lname, email: $email, profile_pic: $profile_pic');
+
+
 }
 }
 

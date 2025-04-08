@@ -1,6 +1,6 @@
 create database Twindle_db;
 use Twindle_db;
--- drop database Twindle_db;
+--  drop database Twindle_db;
 CREATE USER 'twindle'@'localhost' IDENTIFIED BY 'td3124';
 GRANT SELECT, INSERT, UPDATE, DELETE ON twindle_db.* TO 'twindle'@'localhost';
 FLUSH PRIVILEGES;

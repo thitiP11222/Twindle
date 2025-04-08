@@ -26,7 +26,9 @@ class _ProductListState extends State<ProductList> {
 
   Future<List<Product>> fetchProducts() async {
   final result = await fetchProductAndSellerData();
-  _sellers = result['sellers']; // ✅ sellers เป็น List<Seller> แล้ว
+  // แปลง dynamic → Seller
+  _sellers = List<Seller>.from(result['sellers']);
+
   return result['products']; // ✅ products เป็น List<Product> แล้ว
 }
 
@@ -59,7 +61,7 @@ class _ProductListState extends State<ProductList> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
-          return Center(child: Text("Error: \${snapshot.error}"));
+          return Center(child: Text("Error: ${snapshot.error}"));
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return const Center(child: Text("No Products Available"));
         } else {

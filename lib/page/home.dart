@@ -8,7 +8,8 @@ import 'package:twindle_app/service/api_service.dart';
 
 class HomePage extends StatelessWidget {
   final String email;
-  HomePage({required this.email});
+
+  HomePage({required this.email}); // เพิ่ม fname
 
   final TextEditingController _searchController =
       TextEditingController(); // 👈 เพิ่ม controller

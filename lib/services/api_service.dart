@@ -26,7 +26,7 @@ Future<void> login({
   required String email,
   required String password,
 }) async {
-  final url = Uri.parse('http://10.0.2.2:5000/login'); // สำหรับ Emulator
+  final url = Uri.parse('$baseUrl/login'); // สำหรับ Emulator
   try {
     final response = await http.post(
       url,
@@ -40,25 +40,32 @@ Future<void> login({
     final responseData = jsonDecode(response.body);
 
     if (response.statusCode == 200) {
-      final fname = responseData["fname"]; // ดึงชื่อผู้ใช้จาก response
-      final userId = responseData["user_id"]; // ✅ ได้มาจาก backend
+  final fname = responseData["fname"]; 
+  final lname = responseData["lname"]; 
+  final userId = responseData["user_id"]; 
+  final profile_pic = responseData['profile_pic'];
 
-      // ✅ บันทึก session ด้วย SharedPreferences
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString("email", email);
-      await prefs.setString("fname", fname);
+  // ✅ บันทึก session
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setString("email", email);
+  await prefs.setString("fname", fname);
+  await prefs.setString("lname", lname);
+  await prefs.setString("profile_pic", profile_pic);
+  await prefs.setString("user_id", userId);
 
-      await prefs.setString("user_id", userId); // ✅ ต้องมีบรรทัดนี้
+  print("✅ Login success | user_id: $userId");
+  
 
-      print("✅ Login success | user_id: $userId"); // 🔍 เพิ่ม log ช่วย debug
-
-      // ✅ ไปหน้า MainScreen พร้อมส่ง email, fname, user_id
-      Navigator.pushReplacementNamed(context, '/home', arguments: {
+  // ✅ Go to /account page
+      Navigator.pushReplacementNamed(context, '/account', arguments: {
         'email': email,
         'fname': fname,
+        'lname': lname,
+        'profile_pic': profile_pic,
         'user_id': userId,
       });
-    } else {
+  
+} else {
       showDialog(
         context: context,
         builder: (_) => AlertDialog(
