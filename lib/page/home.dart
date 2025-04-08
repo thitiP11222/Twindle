@@ -24,12 +24,15 @@ class HomePage extends StatelessWidget {
     return MaterialApp(
       title: 'Home',
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: 'Kanit'
+      ),
       home: Scaffold(
         backgroundColor: Color.fromARGB(255, 232, 211, 255),
         body: ListView(
           children: [
             Container(
-              margin: EdgeInsets.only(top: 40),
+              margin: EdgeInsets.only(top: 30),
               padding: EdgeInsets.only(
                 right: 10,
               ),

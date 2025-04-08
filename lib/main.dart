@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:twindle_app/page/Account.dart';
 import 'package:twindle_app/page/Home.dart';
 import 'package:twindle_app/page/Profile.dart';
 import 'package:twindle_app/page/login.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
       home: Login(),
       routes: {
         '/home': (context) => MainScreen(),
+        '/account': (context) => Account(),
       },
       
       title: 'Flutter Demo',
@@ -39,7 +41,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = [HomePage(email: '',), Post()];
+  final List<Widget> _pages = [HomePage(email: '',), Post(),HomePage(email: '',),Account()];
 
   void _onItemTapped(int index) async {
     if (index == 1) {
@@ -53,7 +55,9 @@ class _MainScreenState extends State<MainScreen> {
           _selectedIndex = 0; // กลับไปหน้า Home
         });
       }
-    } else {
+    } 
+    
+    else {
       setState(() {
         _selectedIndex = index;
       });

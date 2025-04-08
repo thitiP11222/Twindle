@@ -76,7 +76,6 @@ final filtered = isLoading
                       },
                       icon: Icon(Icons.arrow_back),
                     ),
-                    trailing: Icon(Icons.search),
                   ),
                 ),
                 // ✅ แสดงผล
