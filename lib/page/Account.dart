@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:twindle_app/service/api_service.dart';
+import 'package:twindle_app/services/api_service.dart';
 
 class Account extends StatelessWidget {
   

@@ -4,7 +4,7 @@ import 'package:twindle_app/page/searchResult.dart';
 import 'package:twindle_app/widget/ProductCard.dart';
 import 'package:twindle_app/widget/ProductList.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:twindle_app/service/api_service.dart';
+import 'package:twindle_app/services/api_service.dart';
 
 class HomePage extends StatelessWidget {
   final String email;

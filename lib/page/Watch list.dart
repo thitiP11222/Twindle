@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:twindle_app/page/Favorites%20Manager.dart';
-import 'package:twindle_app/services/favorite_manager.dart';
 import 'package:twindle_app/page/ProductDetail.dart';
 import 'package:twindle_app/model/Product.dart';
 import 'package:twindle_app/model/Seller.dart';

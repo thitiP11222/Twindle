@@ -101,7 +101,7 @@ def get_reviews(user_id):
             reviews = cursor.fetchall()
             return jsonify(reviews), 200
     except Exception as e:
-        print("❌ Get Reviews Error:", str(e))
+        print("Get Reviews Error:", str(e))
         return jsonify({"error": str(e)}), 500
 
 
@@ -119,18 +119,18 @@ def get_seller_products(user_id):
         cursor = conn.cursor(pymysql.cursors.DictCursor)
         cursor.execute("SELECT * FROM Product WHERE user_id = %s", (user_id,))
         products = cursor.fetchall()
-        print("📦 Seller Products:", products)  # 🔍 Debug line
+        print("Seller Products:", products)  # Debug line
         cursor.close()
         return jsonify(products), 200
     except Exception as e:
-        print("❌ Error in /seller_products:", str(e))  # 🛑 แสดง Error จริง
+        print("Error in /seller_products:", str(e))  # แสดง Error จริง
         return jsonify({'error': str(e)}), 500
 
 @app.route('/add-product', methods=['POST'])
 def upload_product():
     try:
-        print("📥 request.form:", request.form)
-        print("🖼️ request.files:", request.files)
+        print("request.form:", request.form)
+        print("request.files:", request.files)
 
         # รับข้อมูลจาก Flutter
         name = request.form.get('product_name')
@@ -180,19 +180,19 @@ def upload_product():
         }), 200
 
     except Exception as e:
-        print("❌ Error:", str(e))
+        print("Error:", str(e))
         return jsonify({"error": str(e)}), 500
 
 @app.route('/delete-product/<int:product_id>', methods=['DELETE'])
 def delete_product(product_id):
     try:
-        print(f"🔍 Trying to delete product ID: {product_id}")
+        print(f" Trying to delete product ID: {product_id}")
         cursor = conn.cursor()
 
-        # 1️⃣ ค้นหา path รูปภาพก่อนลบ
+        #  ค้นหา path รูปภาพก่อนลบ
         cursor.execute("SELECT image_url FROM Product WHERE product_id = %s", (product_id,))
         result = cursor.fetchone()
-        print("📦 Fetched product for deletion:", result)
+        print(" Fetched product for deletion:", result)
 
         if not result:
             return jsonify({"error": "Product not found"}), 404
@@ -200,23 +200,23 @@ def delete_product(product_id):
         image_url = result['image_url'] if isinstance(result, dict) else result[0]
         image_path = os.path.join(os.getcwd(), image_url)
 
-        # 2️⃣ ลบสินค้าออกจาก DB
+        # ลบสินค้าออกจาก DB
         cursor.execute("DELETE FROM Product WHERE product_id = %s", (product_id,))
         conn.commit()
         cursor.close()
-        print("🗑️ Deleted product from DB")
+        print(" Deleted product from DB")
 
         # 3️⃣ ลบไฟล์รูป (ถ้ามีอยู่จริง)
         if os.path.exists(image_path):
             os.remove(image_path)
-            print(f"🧹 Deleted image file: {image_path}")
+            print(f"Deleted image file: {image_path}")
         else:
-            print("⚠️ Image file not found:", image_path)
+            print("Image file not found:", image_path)
 
         return jsonify({"message": "✅ Product deleted successfully"}), 200
 
     except Exception as e:
-        print(f"❌ Delete Error: {e.__class__.__name__} - {str(e)}")
+        print(f"Delete Error: {e.__class__.__name__} - {str(e)}")
         return jsonify({"error": str(e)}), 500
 
     
