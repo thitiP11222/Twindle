@@ -84,6 +84,7 @@ class _PostState extends State<Post> {
     request.fields['lRentprice'] = rent5Controller.text ?? 'N/A';
     request.fields['brand'] = brandController.text ?? 'ไม่ระบุ';
     request.fields['category_name'] = categoryController.text;
+    request.fields['user_id'] = userId ?? '';
 
     //  Image file
     if (_image != null) {
