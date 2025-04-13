@@ -8,7 +8,8 @@ import 'package:twindle_app/config.dart';
 import 'package:twindle_app/model/Product.dart';
 import 'package:twindle_app/model/Seller.dart';
 Future<List<dynamic>> fetchUsers() async {
-  final response = await http.get(Uri.parse('http://localhost:5000/users'));
+  final response = await http.get(Uri.parse('$baseUrl/users'));
+  
   if (response.statusCode == 200) {
     return json.decode(response.body);
   } else {
@@ -45,7 +46,7 @@ Future<void> login({
   final userId = responseData["user_id"]; 
   final profile_pic = responseData['profile_pic'];
 
-  // ✅ บันทึก session
+  // บันทึก session
   final prefs = await SharedPreferences.getInstance();
   await prefs.setString("email", email);
   await prefs.setString("fname", fname);
@@ -56,7 +57,7 @@ Future<void> login({
   print("✅ Login success | user_id: $userId");
   
 
-  // ✅ Go to /account page
+  // Go to /account page
       Navigator.pushReplacementNamed(context, '/home', arguments: {
         'email': email,
         'fname': fname,

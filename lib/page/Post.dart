@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:twindle_app/config.dart';
 
 import 'package:twindle_app/page/home.dart';
 
@@ -73,32 +74,38 @@ if (pickedFile != null) {
   }
 
   Future<void> submitProduct() async {
-  final uri = Uri.parse('http://10.0.2.2:5000/add-product');
+  final uri = Uri.parse('$baseUrl/add-product');
   final request = http.MultipartRequest('POST', uri);
 
-  // ✅ Fields ที่ backend ต้องการ
+  // Fields ที่ backend ต้องการ
   request.fields['product_name'] = nameController.text;
   request.fields['description'] = descriptionController.text;
   request.fields['price'] = priceController.text;
   request.fields['qualityStatus'] = conditionController.text ?? 'ไม่ระบุ' ;
-  request.fields['category_id'] = '1';
+  request.fields['sRentprice'] = rent3Controller.text ?? 'N/A';
+  request.fields['lRentprice'] = rent5Controller.text ?? 'N/A';
   request.fields['brand'] = brandController.text ?? 'ไม่ระบุ';
   request.fields['category_name'] = categoryController.text;
   request.fields['user_id'] = userId ?? '';
-print("✅ Submitting with user_id: $userId");
+print(" Submitting with user_id: $userId");
   final prefs = await SharedPreferences.getInstance();
 print("📦 Shared user_id: ${prefs.getString('user_id')}");
 
 
-
-
-
-  // ✅ Image file
+  //  Image file
   if (_image != null) {
     final imageFile = await http.MultipartFile.fromPath('image', _image!.path);
     request.files.add(imageFile);
   }
-
+  if (_image == null) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('กรุณาเลือกรูปภาพก่อนโพสต์สินค้า'),
+        backgroundColor: Colors.redAccent,
+      ),
+    );
+    return; // ❌ ไม่ส่งข้อมูล ถ้ายังไม่ได้เลือกรูป
+  }
   try {
     final streamedResponse = await request.send();
     final response = await http.Response.fromStream(streamedResponse);

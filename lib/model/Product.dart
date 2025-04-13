@@ -21,20 +21,18 @@ class Product {
     required this.price,
     this.sRentprice,
     this.lRentprice,
-    required this.sellerId, // 🔗 Now connected to Seller
+    required this.sellerId, //  connected to Seller
     required this.description,
     required this.category,
     required this.qualityStatus,
     this.brand,
   });
-  // Getter เพื่อให้แน่ใจว่าไม่มีค่า null
-  String get safeSRentPrice => sRentprice ?? "N/A";
-  String get safeLRentPrice => lRentprice ?? "N/A";
+
 
 factory Product.fromJson(Map<String, dynamic> json) {
   final rawPath = json["image_url"] ?? "static/uploads/default.jpg";
 
-  // ✅ ตรวจว่าเป็น asset หรือไม่ ถ้าไม่ใช่ → ต่อ URL
+  // ตรวจว่าเป็น asset หรือไม่ ถ้าไม่ใช่ → ต่อ URL
   final isAsset = rawPath.startsWith("assets/");
   final fullImagePath = isAsset
       ? rawPath

@@ -137,8 +137,9 @@ def upload_product():
         description = request.form.get('description')
         brand = request.form.get('brand')
         price = request.form.get('price')
+        sRentprice = request.form.get('sRentprice')
+        lRentprice = request.form.get('lRentprice')
         quality = request.form.get('qualityStatus')
-        category_id = request.form.get('category_id')
         user_id = request.form.get('user_id')
         category_name = request.form.get('category_name')
 
@@ -164,12 +165,12 @@ def upload_product():
         cursor = conn.cursor()
         cursor.execute("""
             INSERT INTO Product (
-                product_name, description_, brand, price, qualityStatus,
-                category_id, image_url, user_id, category_name
+                product_name, description_, brand, price, sRentprice, lRentprice, qualityStatus
+                , image_url, user_id, category_name
             )
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """, (
-            name, description, brand, price, quality, category_id, image_url, user_id, category_name
+            name, description, brand, price, sRentprice, lRentprice, quality, image_url, user_id, category_name
         ))
         conn.commit()
         cursor.close()

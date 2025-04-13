@@ -42,7 +42,7 @@ class _SearchResultState extends State<SearchResult> {
 
   @override
   Widget build(BuildContext context) {
-    // 🔥 Trigger rebuild เพื่อดึงข้อมูลล่าสุด
+    // Trigger rebuild เพื่อดึงข้อมูลล่าสุด
     Future.microtask(() => (context as Element).markNeedsBuild());
 
         
