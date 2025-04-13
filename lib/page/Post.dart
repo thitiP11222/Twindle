@@ -92,15 +92,6 @@ class _PostState extends State<Post> {
           await http.MultipartFile.fromPath('image', _image!.path);
       request.files.add(imageFile);
     }
-    if (_image == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('กรุณาเลือกรูปภาพก่อนโพสต์สินค้า'),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
-      return; //ไม่ส่งข้อมูล ถ้ายังไม่ได้เลือกรูป
-    }
     try {
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
