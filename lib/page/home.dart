@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:twindle_app/page/login.dart';
 import 'package:twindle_app/page/searchResult.dart';
-import 'package:twindle_app/widget/ProductCard.dart';
 import 'package:twindle_app/widget/ProductList.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:twindle_app/services/api_service.dart';

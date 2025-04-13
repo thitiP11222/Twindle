@@ -64,7 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // 🔙 Back Button-
+                    // Back Button-
 
                     SizedBox(height: 22),
 
@@ -77,7 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     SizedBox(height: 20),
 
-                    // 🏆 Profile Header
+                    // Profile Header
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -180,42 +180,53 @@ class _ProfilePageState extends State<ProfilePage> {
                     Divider(thickness: 1, color: Colors.grey.shade300),
 
                     Column(
-                    children: reviews.map((review) {
-                      final rating = review['rating'] ?? 0.0;
-                      return Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CircleAvatar(radius: 20, backgroundColor: Colors.grey.shade300),
-                            SizedBox(width: 15),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(review['reviewer_name'], style: TextStyle(fontWeight: FontWeight.bold)),
-                                  SizedBox(height: 4),
-                                  Row(
-                                    children: List.generate(5, (index) {
-                                      if (index < rating.floor()) {
-                                        return Icon(Icons.star, color: Colors.amber, size: 16);
-                                      } else if (index < rating && rating - index >= 0.5) {
-                                        return Icon(Icons.star_half, color: Colors.amber, size: 16);
-                                      } else {
-                                        return Icon(Icons.star_border, color: Colors.grey, size: 16);
-                                      }
-                                    }),
-                                  ),
-                                  SizedBox(height: 4),
-                                  Text(review['review_text'] ?? '', style: TextStyle(fontSize: 12, color: Colors.black87)),
-                                ],
+                      children: reviews.map((review) {
+                        final rating = review['rating'] ?? 0.0;
+                        return Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CircleAvatar(
+                                  radius: 20,
+                                  backgroundColor: Colors.grey.shade300),
+                              SizedBox(width: 15),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(review['reviewer_name'],
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                    SizedBox(height: 4),
+                                    Row(
+                                      children: List.generate(5, (index) {
+                                        if (index < rating.floor()) {
+                                          return Icon(Icons.star,
+                                              color: Colors.amber, size: 16);
+                                        } else if (index < rating &&
+                                            rating - index >= 0.5) {
+                                          return Icon(Icons.star_half,
+                                              color: Colors.amber, size: 16);
+                                        } else {
+                                          return Icon(Icons.star_border,
+                                              color: Colors.grey, size: 16);
+                                        }
+                                      }),
+                                    ),
+                                    SizedBox(height: 4),
+                                    Text(review['review_text'] ?? '',
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.black87)),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      );
-                    }).toList(),
-                  ),
+                            ],
+                          ),
+                        );
+                      }).toList(),
+                    ),
 
                     SizedBox(height: 15),
                     Divider(thickness: 1, color: Colors.grey.shade300),
@@ -256,18 +267,20 @@ class _ProfilePageState extends State<ProfilePage> {
                             itemCount: sellerProducts.length,
                             itemBuilder: (context, index) {
                               final product = sellerProducts[index];
-                              return GestureDetector(onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ProductDetailPage(
-                          product: product,
-                          seller: widget.seller,
-                        ),
-                      ),
-                    );
-                  },child: PostCard(product),);
-                              
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ProductDetailPage(
+                                        product: product,
+                                        seller: widget.seller,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: PostCard(product),
+                              );
                             },
                           );
                         }
@@ -285,41 +298,37 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Column PostCard(Product product) {
     return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: 120,
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey.shade300,
-                                    borderRadius: BorderRadius.circular(10),
-                                    image: DecorationImage(
-                                      image: product.imagePath
-                                              .startsWith("http")
-                                          ? NetworkImage(product.imagePath)
-                                          : AssetImage(product.imagePath)
-                                              as ImageProvider,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(height: 5),
-                                Text(
-                                  product.productName,
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                Text(
-                                  "฿${product.price}",
-                                  style: TextStyle(color: Colors.blue),
-                                ),
-                                Text(
-                                  widget.seller.username,
-                                  style: TextStyle(
-                                      color: Colors.grey, fontSize: 12),
-                                ),
-                              ],
-                            );
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          height: 120,
+          decoration: BoxDecoration(
+            color: Colors.grey.shade300,
+            borderRadius: BorderRadius.circular(10),
+            image: DecorationImage(
+              image: product.imagePath.startsWith("http")
+                  ? NetworkImage(product.imagePath)
+                  : AssetImage(product.imagePath) as ImageProvider,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        SizedBox(height: 5),
+        Text(
+          product.productName,
+          style: TextStyle(fontWeight: FontWeight.bold),
+          overflow: TextOverflow.ellipsis,
+        ),
+        Text(
+          "฿${product.price}",
+          style: TextStyle(color: Colors.blue),
+        ),
+        Text(
+          widget.seller.username,
+          style: TextStyle(color: Colors.grey, fontSize: 12),
+        ),
+      ],
+    );
   }
 
   Widget buildBadges(Seller seller, BuildContext context) {

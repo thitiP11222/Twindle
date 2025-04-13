@@ -14,18 +14,6 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     Seller? seller = sellers.firstWhere(
       (s) => s.user_id == product.sellerId,
-      orElse: () => Seller(
-        user_id: "default",
-        username: "Unknown Seller",
-        profile_pic: "static/uploads/default.jpg",
-        rating: "0",
-        phone: 'no info',
-        email: 'no info',
-        fname: '-',
-        lname: '-',
-        bio: "-",
-        badges: [],
-      ),
     );
 
     return GestureDetector(

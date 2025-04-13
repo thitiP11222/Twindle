@@ -32,9 +32,6 @@ class _ProductListState extends State<ProductList> {
   return result['products']; // ✅ products เป็น List<Product> แล้ว
 }
 
-
-  
-
   Seller? getSellerById(String sellerId) {
     return _sellers.firstWhere(
       (seller) => seller.user_id == sellerId,
