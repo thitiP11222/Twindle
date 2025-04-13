@@ -6,8 +6,7 @@ from werkzeug.utils import secure_filename
 # import MySQLdb
 import pymysql
 pymysql.install_as_MySQLdb()
-# สำหรับ version ที่มีการเข้ารหัส ให้ import นี้:
-# from werkzeug.security import check_password_hash
+
 
 from datetime import datetime
 import os
