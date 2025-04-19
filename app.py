@@ -26,14 +26,15 @@ def allowed_file(filename):
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 
-conn = pymysql.connect(
-    host="localhost",
-    user="twindle",
-    passwd="td3124",
-    db="Twindle_db",
-    cursorclass=pymysql.cursors.DictCursor,  
-    autocommit=True  
-)
+def get_connection():
+    return pymysql.connect(
+        host="localhost",
+        user="twindle",
+        passwd="td3124",
+        db="Twindle_db",
+        cursorclass=pymysql.cursors.DictCursor,
+        autocommit=True
+    )
 
 @app.route('/')
 def index():
@@ -44,9 +45,10 @@ def login():
     email = data.get('email')
     password = data.get('passwd')
 
-    cursor = conn.cursor()
-    cursor.execute("SELECT user_id, passwd, fname, lname, email, profile_pic FROM User WHERE email = %s", (email,))
-    result = cursor.fetchone()
+    conn = get_connection()
+    with conn.cursor() as cursor:
+        cursor.execute("SELECT user_id, passwd, fname, lname, email, profile_pic FROM User WHERE email = %s", (email,))
+        result = cursor.fetchone()
     cursor.close()
 
     if result is None:
@@ -80,50 +82,67 @@ def login():
 def get_products():
     user_id = request.args.get('user_id')
 
-    cursor = conn.cursor(pymysql.cursors.DictCursor)
-    if user_id:
-        cursor.execute("SELECT * FROM Product WHERE user_id = %s", (user_id,))
-    else:
-        cursor.execute("SELECT * FROM Product")
-    products = cursor.fetchall()
-    cursor.close()
-    return jsonify(products), 200
+    try:
+        conn = get_connection()
+        with conn.cursor() as cursor:
+            if user_id:
+                cursor.execute("SELECT * FROM Product WHERE user_id = %s", (user_id,))
+            else:
+                cursor.execute("SELECT * FROM Product")
+            products = cursor.fetchall()
+        conn.close()
+        return jsonify(products), 200
+
+    except Exception as e:
+        print("Get Products Error:", str(e))
+        return jsonify({'error': str(e)}), 500
+
 @app.route('/reviews/<user_id>', methods=['GET'])
 def get_reviews(user_id):
     try:
-        with conn.cursor(pymysql.cursors.DictCursor) as cursor:
+        conn = get_connection() 
+        with conn.cursor() as cursor:
             cursor.execute("""
                 SELECT reviewer_name, rating, review_text
                 FROM Reviews
                 WHERE user_id = %s
             """, (user_id,))
             reviews = cursor.fetchall()
-            return jsonify(reviews), 200
+        conn.close()  
+        return jsonify(reviews), 200
     except Exception as e:
         print("Get Reviews Error:", str(e))
         return jsonify({"error": str(e)}), 500
 
-
 @app.route('/sellers', methods=['GET'])
 def get_sellers():
-    cursor = conn.cursor(pymysql.cursors.DictCursor)
-    cursor.execute("SELECT * FROM User")  # ชื่อ table อาจต้องตรงกับ DB ของคุณ
-    sellers = cursor.fetchall()
-    cursor.close()
-    return jsonify(sellers), 200
+    try:
+        conn = get_connection()
+        with conn.cursor() as cursor:
+            cursor.execute("SELECT * FROM User")  # ชื่อ table ต้องตรงกับ DB จริง
+            sellers = cursor.fetchall()
+        conn.close()
+        return jsonify(sellers), 200
+
+    except Exception as e:
+        print("Get Sellers Error:", str(e))
+        return jsonify({"error": str(e)}), 500
+
 
 @app.route('/seller_products/<user_id>', methods=['GET'])
 def get_seller_products(user_id):
     try:
-        cursor = conn.cursor(pymysql.cursors.DictCursor)
-        cursor.execute("SELECT * FROM Product WHERE user_id = %s", (user_id,))
-        products = cursor.fetchall()
-        print("Seller Products:", products)  # Debug line
-        cursor.close()
+        conn = get_connection()
+        with conn.cursor() as cursor:
+            cursor.execute("SELECT * FROM Product WHERE user_id = %s", (user_id,))
+            products = cursor.fetchall()
+        conn.close()
+        print("📦 Seller Products:", products)
         return jsonify(products), 200
     except Exception as e:
-        print("Error in /seller_products:", str(e))  # แสดง Error จริง
+        print("❌ Error in /seller_products:", str(e))
         return jsonify({'error': str(e)}), 500
+
 
 @app.route('/add-product', methods=['POST'])
 def upload_product():
@@ -161,17 +180,17 @@ def upload_product():
         image.save(image_save_path)
 
         # INSERT ลง MySQL
-        cursor = conn.cursor()
-        cursor.execute("""
-            INSERT INTO Product (
-                product_name, description_, brand, price, sRentprice, lRentprice, qualityStatus
-                , image_url, user_id, category_name
-            )
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-        """, (
-            name, description, brand, price, sRentprice, lRentprice, quality, image_url, user_id, category_name
-        ))
-        conn.commit()
+        conn = get_connection()
+        with conn.cursor() as cursor:
+            cursor.execute("""
+                INSERT INTO Product (
+                    product_name, description_, brand, price, sRentprice, lRentprice, qualityStatus
+                    , image_url, user_id, category_name
+                )
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """, (
+                name, description, brand, price, sRentprice, lRentprice, quality, image_url, user_id, category_name
+            ))
         cursor.close()
 
         return jsonify({
@@ -187,26 +206,25 @@ def upload_product():
 def delete_product(product_id):
     try:
         print(f" Trying to delete product ID: {product_id}")
-        cursor = conn.cursor()
+        conn = get_connection()
+        with conn.cursor() as cursor:
+            #  ค้นหา path รูปภาพก่อนลบ
+            cursor.execute("SELECT image_url FROM Product WHERE product_id = %s", (product_id,))
+            result = cursor.fetchone()
+            print(" Fetched product for deletion:", result)
 
-        #  ค้นหา path รูปภาพก่อนลบ
-        cursor.execute("SELECT image_url FROM Product WHERE product_id = %s", (product_id,))
-        result = cursor.fetchone()
-        print(" Fetched product for deletion:", result)
+            if not result:
+                return jsonify({"error": "Product not found"}), 404
 
-        if not result:
-            return jsonify({"error": "Product not found"}), 404
+            image_url = result['image_url'] if isinstance(result, dict) else result[0]
+            image_path = os.path.join(os.getcwd(), image_url)
 
-        image_url = result['image_url'] if isinstance(result, dict) else result[0]
-        image_path = os.path.join(os.getcwd(), image_url)
-
-        # ลบสินค้าออกจาก DB
-        cursor.execute("DELETE FROM Product WHERE product_id = %s", (product_id,))
-        conn.commit()
-        cursor.close()
+            # ลบสินค้าออกจาก DB
+            cursor.execute("DELETE FROM Product WHERE product_id = %s", (product_id,))
+        conn.close()
         print(" Deleted product from DB")
 
-        # 3️⃣ ลบไฟล์รูป (ถ้ามีอยู่จริง)
+        # ลบไฟล์รูป (ถ้ามีอยู่)
         if os.path.exists(image_path):
             os.remove(image_path)
             print(f"Deleted image file: {image_path}")

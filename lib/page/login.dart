@@ -15,16 +15,35 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   // Controll Login
   final TextEditingController emailController = TextEditingController();
 
   final TextEditingController passwordController = TextEditingController();
+  late AnimationController _controller;
+  late Animation<Offset> _animation;
   @override
-//  ตรวจสอบ session ตอนเปิดแอป
   void initState() {
     super.initState();
-    checkSession();
+    checkSession(); //  ตรวจสอบ session ตอนเปิดแอป
+    // ควบคุม animation เด้งขึ้นลง
+    _controller = AnimationController(
+      vsync: this, // ต้องการ TickerProvider
+      duration: const Duration(seconds: 2),
+    )..repeat(reverse: true);
+
+    _animation = Tween<Offset>(
+      begin: const Offset(0, 0.02),
+      end: const Offset(0, -0.02),
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOut,
+    ));
+  }
+  @override
+  void dispose() {
+    _controller.dispose(); // ปล่อย controller เมื่อเลิกใช้
+    super.dispose();
   }
 
   Future<void> checkSession() async {
@@ -68,10 +87,15 @@ class _LoginState extends State<Login> {
                       height: 100,
                     ),
                   ),
-                  Container(
-                    child: Image.asset(
-                      'assets/imgs/login-1.png',
-                      height: 280,
+                  Center(
+                    child: SlideTransition(
+                      position: _animation,
+                      child: Container(
+                        child: Image.asset(
+                          'assets/imgs/login-1.png',
+                          height: 280,
+                        ),
+                      ),
                     ),
                   ),
                   Container(

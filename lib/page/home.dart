@@ -153,9 +153,45 @@ class HomePage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Image.asset('assets/imgs/brand/price-home/1.png'),
-              Image.asset('assets/imgs/brand/price-home/2.png'),
-              Image.asset('assets/imgs/brand/price-home/3.png'),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SearchResult(keyword: '', filterPrice: 300.0,),
+                    ),
+                  );
+                },
+                child: Image.asset(
+                  'assets/imgs/brand/price-home/1.png',
+                  width: 100,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SearchResult(keyword: '', filterPrice: 500.0,),
+                    ),
+                  );
+                },
+                child: Image.asset('assets/imgs/brand/price-home/2.png',width: 100,),
+                
+              ),
+              
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SearchResult(keyword: '', filterPrice: 1000.0,),
+                    ),
+                  );
+                },
+                child:Image.asset('assets/imgs/brand/price-home/3.png',width: 100,),
+
+              ),
             ],
           ),
           Container(
