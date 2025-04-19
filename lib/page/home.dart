@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
   HomePage({required this.email}); // เพิ่ม fname
 
   final TextEditingController _searchController =
-      TextEditingController(); // 👈 เพิ่ม controller
+      TextEditingController(); // เพิ่ม controller
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,7 @@ class HomePage extends StatelessWidget {
                     width: 280, // Set desired width
                     height: 40, // Set desired height
                     child: TextField(
-                      controller: _searchController, // 👈 ผูก controller
+                      controller: _searchController, //controller
                       decoration: InputDecoration(
                         hintText: 'Searching...',
                         hintStyle: TextStyle(fontSize: 14),
@@ -90,7 +90,7 @@ class HomePage extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => SearchResult(
-                                    keyword: keyword)), // 👈 ส่ง keyword ไป
+                                    keyword: keyword)), //ส่ง keyword 
                           );
                         },
                         icon: Icon(
@@ -153,9 +153,45 @@ class HomePage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Image.asset('assets/imgs/brand/price-home/1.png'),
-              Image.asset('assets/imgs/brand/price-home/2.png'),
-              Image.asset('assets/imgs/brand/price-home/3.png'),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SearchResult(keyword: '', filterPrice: 300.0,),
+                    ),
+                  );
+                },
+                child: Image.asset(
+                  'assets/imgs/brand/price-home/1.png',
+                  width: 100,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SearchResult(keyword: '', filterPrice: 500.0,),
+                    ),
+                  );
+                },
+                child: Image.asset('assets/imgs/brand/price-home/2.png',width: 100,),
+                
+              ),
+              
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SearchResult(keyword: '', filterPrice: 1000.0,),
+                    ),
+                  );
+                },
+                child:Image.asset('assets/imgs/brand/price-home/3.png',width: 100,),
+
+              ),
             ],
           ),
           Container(

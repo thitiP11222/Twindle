@@ -10,8 +10,9 @@ import 'package:http/http.dart' as http;
 
 class SearchResult extends StatefulWidget {
   final String keyword;
+  final double? filterPrice; 
 
-  SearchResult({super.key, required this.keyword});
+  SearchResult({super.key, required this.keyword, this.filterPrice});
 
   @override
   State<SearchResult> createState() => _SearchResultState();
@@ -47,13 +48,19 @@ class _SearchResultState extends State<SearchResult> {
 
         
 final filtered = isLoading
-    ? []  // ยังไม่โหลดข้อมูล
-    : widget.keyword.trim().isEmpty
-        ? products  // <<< ควรแสดงสินค้าทั้งหมด
-        : products.where((p) => p.productName
-            .toLowerCase()
-            .contains(widget.keyword.toLowerCase()))
-        .toList();
+    ? []
+    : products.where((p) {
+        final matchKeyword = widget.keyword.trim().isEmpty
+            ? true
+            : p.productName.toLowerCase().contains(widget.keyword.toLowerCase());
+
+        final matchPrice = widget.filterPrice != null
+            ? double.tryParse(p.price.toString()) != null &&
+              double.parse(p.price.toString()) < widget.filterPrice!
+            : true;
+
+        return matchKeyword && matchPrice;
+      }).toList();
 
     return Scaffold(
       backgroundColor: Colors.white,

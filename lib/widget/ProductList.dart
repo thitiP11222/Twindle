@@ -29,7 +29,7 @@ class _ProductListState extends State<ProductList> {
   // แปลง dynamic → Seller
   _sellers = List<Seller>.from(result['sellers']);
 
-  return result['products']; // ✅ products เป็น List<Product> แล้ว
+  return result['products']; //products เป็น List<Product> แล้ว
 }
 
   Seller? getSellerById(String sellerId) {

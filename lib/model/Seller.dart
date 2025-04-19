@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:convert'; // ✅ สำหรับใช้ json.decode()
+import 'dart:convert'; //สำหรับใช้ json.decode()
 
 class Seller {
   final String user_id;
@@ -11,7 +11,7 @@ class Seller {
   final String fname;
   final String lname;
   final String bio;
-  final List<String> badges; // ✅ เพิ่ม badges
+  final List<String> badges; //เพิ่ม badges
 
   Seller({
     required this.user_id,
@@ -39,7 +39,7 @@ class Seller {
     lname: (json["lname"]?? "-"),
     bio: json["bio"] ?? "No Info",
 
-    // 🛠 ถ้า badges เก็บแบบเป็น String เช่น "Top Rated,Verified"
+    //ถ้า badges เก็บแบบเป็น String เช่น "Top Rated,Verified"
     badges: (json["badges"] != null && json["badges"] is String)
         ? (json["badges"] as String).split(',').map((e) => e.trim()).toList()
         : [],

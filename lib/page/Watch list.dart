@@ -12,7 +12,7 @@ class WatchListPage extends StatelessWidget {
     // 🔥 Trigger rebuild เพื่อดึงข้อมูลล่าสุด
     Future.microtask(() => (context as Element).markNeedsBuild());
 
-    // ✅ ดึงรายการ favorite
+    //ดึงรายการ favorite
     final favorites =
         List<Map<String, dynamic>>.from(FavoriteManager().favorites);
 

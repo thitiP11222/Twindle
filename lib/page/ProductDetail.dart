@@ -26,8 +26,8 @@ class ProductDetailPage extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent, // 👈 ทำให้โปร่งใส
-        elevation: 0, // 👈 ไม่มีเงา
+        backgroundColor: Colors.transparent, //โปร่งใส
+        elevation: 0, //ไม่มีเงา
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.pop(context),
@@ -354,18 +354,6 @@ class ProductDetailPage extends StatelessWidget {
           ),
         ),
         SizedBox(width: 10),
-        // Container(
-        //   padding: EdgeInsets.all(10),
-        //   decoration: BoxDecoration(
-        //     color: Color(0xFFE0FBF3), // Light greenish color
-        //     borderRadius: BorderRadius.circular(15),
-        //   ),
-        //   child: Icon(
-        //     Icons.favorite_border, // Heart icon
-        //     color: Colors.green,
-        //     size: 28,
-        //   ),
-        // ),
         StatefulBuilder(
           builder: (context, setState) {
             bool isFavorited = FavoriteManager().isFavorite(product);
@@ -400,7 +388,7 @@ class ProductDetailPage extends StatelessWidget {
 
   ConstrainedBox _profile(BuildContext context) {
     return ConstrainedBox(
-      constraints: BoxConstraints(minHeight: 50), // 👈 บังคับความสูงรวม
+      constraints: BoxConstraints(minHeight: 50),
       child: Container(
         padding:
             EdgeInsets.symmetric(horizontal: 12, vertical: 10), // ลด padding
@@ -427,7 +415,7 @@ class ProductDetailPage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize:
-                  MainAxisSize.min, // 👈 ให้ Column ใช้พื้นที่เท่าที่จำเป็น
+                  MainAxisSize.min, 
               children: [
                 Text(
                   seller.username,

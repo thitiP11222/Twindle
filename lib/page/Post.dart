@@ -158,8 +158,8 @@ class _PostState extends State<Post> {
                   'คำอธิบายสินค้า*', 'ใส่คำอธิบาย', descriptionController),
               buildTextInputField('สภาพสินค้า*', 'ใหม่ / ปานกลาง / มีตำหนิ',
                   conditionController),
-              buildTextInputField(
-                  'ราคาขาย', 'ราคาสินค้า เช่น 200 ฿', priceController),
+              buildNumTextField(
+                  'ราคาขาย', 'ราคาสินค้า เช่น 200 ฿', 'บาท', priceController),
               const Padding(
                 padding: EdgeInsets.only(left: 50, top: 2),
                 child: Text('*เว้นว่างหากไม่ขายขาด',
@@ -167,10 +167,10 @@ class _PostState extends State<Post> {
               ),
               const SizedBox(height: 30),
               buildSectionTitle('ราคาค่าเช่า'),
-              buildRentalTextField('ราคาค่าเช่า 3 วัน*', 'กรอกราคา เช่น 370 ฿',
+              buildNumTextField('ราคาค่าเช่า 3 วัน*', 'กรอกราคา เช่น 370 ฿',
                   '3 วัน', rent3Controller),
               const SizedBox(height: 10),
-              buildRentalTextField('ราคาค่าเช่า 5 วัน*', 'กรอกราคา เช่น 570 ฿',
+              buildNumTextField('ราคาค่าเช่า 5 วัน*', 'กรอกราคา เช่น 570 ฿',
                   '5 วัน', rent5Controller),
               const Padding(
                 padding: EdgeInsets.only(left: 50, top: 2),
@@ -235,8 +235,10 @@ class _PostState extends State<Post> {
         ),
       );
 
-  Widget buildRentalTextField(String label, String placeholder, String duration,
-          TextEditingController controller) =>
+  Widget buildNumTextField(
+  String label,
+  String placeholder,
+  [String duration = '', TextEditingController? controller]) =>
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 50),
         child: Row(

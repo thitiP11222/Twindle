@@ -1,5 +1,5 @@
 import 'package:twindle_app/model/Seller.dart';
-import 'dart:convert'; // ✅ สำหรับใช้ json.decode()
+import 'dart:convert'; //สำหรับใช้ json.decode()
 
 class Product {
   final String productId;
@@ -8,7 +8,7 @@ class Product {
   final String price;
   String? sRentprice;
   String? lRentprice;
-  final String sellerId; // 🔗 Connects to Seller
+  final String sellerId; //Connects to Seller
   final String description;
   final String category;
   final String qualityStatus;
@@ -36,11 +36,11 @@ factory Product.fromJson(Map<String, dynamic> json) {
   final isAsset = rawPath.startsWith("assets/");
   final fullImagePath = isAsset
       ? rawPath
-      : "http://10.0.2.2:5000/$rawPath"; // 👈 ใช้สำหรับ Emulator
+      : "http://10.0.2.2:5000/$rawPath"; //  ใช้สำหรับ Emulator
 
   return Product(
     productId: json["product_id"].toString(),
-    imagePath: fullImagePath, // ✅ ใช้ path ที่พร้อมแสดง
+    imagePath: fullImagePath, // ใช้ path ที่พร้อมแสดง
     productName: json["product_name"] ?? "No Name",
     price: json["price"]?.toString() ?? "0",
     sRentprice: json["sRentprice"]?.toString(),
