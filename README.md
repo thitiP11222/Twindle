@@ -89,11 +89,3 @@ const String baseUrl = "http://<your-local-ip>:5000"; // เช่น http://192
 
 
 ---
-
-## 📚 Flutter Resources (เพิ่มเติมสำหรับผู้เริ่มต้น)
-
-หากคุณยังใหม่กับ Flutter สามารถศึกษาได้จากแหล่งข้อมูลเหล่านี้:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-- [Flutter Documentation](https://docs.flutter.dev/)
