@@ -91,7 +91,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON twindle_db.* TO 'twindle'@'localhost';
 
 ```bash
 cd ../twindle_app
-flutter pub add api_service_helper http shared_preferences image_picker 
+flutter pub add api_service_helper http shared_preferences image_picker flutter_launcher_icons
 flutter pub get
 flutter run
 ```
@@ -103,7 +103,13 @@ flutter run
 const String baseUrl = "http://<your-local-ip>:5000"; // เช่น http://192.168.1.10:5000
 
 ```
-
+## Dependencies
+This project utilizes the following packages:
+- http: ^0.13.6
+- cupertino_icons: ^1.0.8
+- image_picker: ^1.1.2
+- flutter_launcher_icons: ^0.14.3
+- shared_preferences: ^2.2.2
 
 
 ---
