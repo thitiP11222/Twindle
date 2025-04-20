@@ -37,36 +37,63 @@ Twindle คือแอปพลิเคชัน Marketplace สำหรั�
 
 ---
 
-## 🚀 เริ่มต้นใช้งาน
+## 🚀 เริ่มต้นใช้งาน (Getting Started)
+
+ทำตามขั้นตอนต่อไปนี้เพื่อเริ่มต้นใช้งานระบบ Twindle ทั้ง Backend และ Frontend
+
+---
 
 ### 1. Clone Repo
 
 ```bash
 git clone https://github.com/yourusername/twindle.git
 cd twindle
----
+```
 
 
 ### **2. Setup Backend**
 
-
 ```bash
 cd backend
 python3 -m venv venv
-source venv/bin/activate  # บน Windows ใช้ venv\Scripts\activate
+source venv/bin/activate  # บน Windows ใช้: venv\Scripts\activate
 pip install -r requirements.txt
 python app.py
+```
+
+🔗 Flask Server จะรันที่: `http://127.0.0.1:5000`
+
+
+
+### **3. Setup Database (MySQL)**
+
+1. เปิด MySQL และสร้าง database ชื่อ `Twindle_db`
+2. ใช้ไฟล์ `Twindle_db.sql` เพื่อสร้างตารางและข้อมูลเริ่มต้น:
+
+```sql
+source path/to/Twindle_db.sql;
+```
+
+📌 ตรวจสอบให้แน่ใจว่า `user` และ `password` ใน `app.py` ตรงกับการตั้งค่าในเครื่องคุณ
+
+
+
+### **4. Setup Frontend (Flutter)**
+
+```bash
+cd ../twindle_app
+flutter pub get
+flutter run
+```
+
+📱 แนะนำให้ทดสอบบน Emulator หรืออุปกรณ์จริงที่เชื่อมต่ออินเทอร์เน็ต
+
 ---
 
-## Getting Started
+## 📚 Flutter Resources (เพิ่มเติมสำหรับผู้เริ่มต้น)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
+หากคุณยังใหม่กับ Flutter สามารถศึกษาได้จากแหล่งข้อมูลเหล่านี้:
 
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [Flutter Documentation](https://docs.flutter.dev/)
