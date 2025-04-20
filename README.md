@@ -46,7 +46,9 @@ git clone https://github.com/yourusername/twindle.git
 cd twindle
 ---
 
-### 2. Setup Backend
+
+### **2. Setup Backend**
+
 
 ```bash
 cd backend
