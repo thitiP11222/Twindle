@@ -46,14 +46,16 @@ git clone https://github.com/yourusername/twindle.git
 cd twindle
 ---
 
-### 2. Clone Repo
+### 2. Setup Backend
+
 ```bash
 cd backend
 python3 -m venv venv
 source venv/bin/activate  # บน Windows ใช้ venv\Scripts\activate
 pip install -r requirements.txt
 python app.py
---- 
+---
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
