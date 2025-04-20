@@ -6,7 +6,7 @@ Twindle คือแอปพลิเคชัน Marketplace สำหรั�
 
 ## 📲 ตัวอย่างหน้าจอแอป
 
-<img src="screenshots/home.png" width="200"/> <img src="screenshots/product_detail.png" width="200"/> <img src="screenshots/account.png" width="200"/>
+<img src="https://drive.google.com/uc?export=view&id=14-qRFzg5xcx6EXyfYsqwyomE4tY6kKIp"/>
 
 ---
 
